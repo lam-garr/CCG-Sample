@@ -1,0 +1,22 @@
+.card{
+    max-width: 100px;
+    max-height: 200px;
+    border: 1px solid greenyellow;
+    padding: 1.5px;
+    position: relative;
+}
+
+.card-img{
+    max-width: inherit;
+    max-height: inherit;
+}
+
+.card-power{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 9px;
+    border-radius: 50%;
+    background-color: gold;
+    color: red;
+}
