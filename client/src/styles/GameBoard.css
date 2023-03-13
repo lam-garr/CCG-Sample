@@ -1,0 +1,36 @@
+.board{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: burlywood;
+}
+
+.main-locations{
+    width: 710px;
+    height: 490px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: orange;
+}
+
+.bottom{
+    width: 715px;
+    height: 130px;
+    background-color: red;
+}
+
+.hand{
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: black;
+}
+

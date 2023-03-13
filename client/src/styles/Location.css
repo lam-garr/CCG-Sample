@@ -1,0 +1,56 @@
+.main-location{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aqua;
+    max-height: 490px;
+    min-height: 490px;
+    max-width: 215px;
+    min-width: 215px;
+}
+
+.location-top{
+    max-height: 185px;
+    min-height: 185px;
+    max-width: 210px;
+    min-width: 210px;
+    background-color: red;
+}
+
+.location-mid{
+    max-height: 120px;
+    min-height: 120px;
+    max-width: 215px;
+    min-width: 215px;
+    background-color: green;
+    position: relative;
+}
+
+.location-bottom{
+    max-height: 185px;
+    min-height: 185px;
+    max-width: 210px;
+    min-width: 210px;
+    background-color: blue;
+}
+
+.opp-power{
+    position: absolute;
+    top: -10px;
+    right: 95px;
+    padding: 5px 9px;
+    border-radius: 50%;
+    background-color: gold;
+    color: red;
+}
+
+.user-power{
+    position: absolute;
+    bottom: -10px;
+    right: 95px;
+    padding: 5px 9px;
+    border-radius: 50%;
+    background-color: gold;
+    color: red;
+}
