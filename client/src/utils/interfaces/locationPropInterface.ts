@@ -6,5 +6,6 @@ export default interface locationPropInterface{
     handleOnDrop: (e: React.DragEvent) => void,
     cards: string[],
     hover: boolean,
-    draggingCard: string;
+    draggingCard: string,
+    dragEndCard: (e: React.DragEvent) => void;
 }

@@ -5,7 +5,7 @@ import "../styles/Card.css";
 
 function Card(prop: cardPropInterface){
 
-    const handleClassName = () => {
+    const handleMainClassName = () => {
 
         if(prop.draggingCard === `${prop.id}`) return "card-dragging";
 
@@ -17,7 +17,7 @@ function Card(prop: cardPropInterface){
     }
 
     return(
-        <div className={handleClassName()} draggable={handleDraggable()} onDragStart={(e) => prop.handleDrag(e, prop.id)}>
+        <div className={handleMainClassName()} draggable={handleDraggable()} onDragStart={(e) => prop.handleDrag(e, prop.id)} onDragEnd={prop.dragEnd}>
             <img src={img} alt="" className="card-img"/>
             <span className="card-power">69</span>
         </div>

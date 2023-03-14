@@ -24,7 +24,7 @@ function Location(prop: locationPropInterface){
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
-                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard}/>)
+                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard}/>)
                 })}
             </div>
         </section>

@@ -63,6 +63,11 @@ function GameBoard(){
         setHoverRight(false);
     }
 
+    //handle drag end for card
+    const cardDragEnd = (e: React.DragEvent) => {
+        setDragging("");
+    }
+
     //Left location handling**************
 
     //handle drag from left location
@@ -235,14 +240,14 @@ function GameBoard(){
     return(
         <main className="board">
             <section className="main-locations">
-                <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging}/>
-                <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging}/>
-                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging}/>
+                <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd}/>
+                <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd}/>
+                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd}/>
             </section>
             <section className="bottom">
                 <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
                     {hand && hand.map((card, i) => {
-                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging}/>)
+                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd}/>)
                     })}
                 </div>
             </section>
