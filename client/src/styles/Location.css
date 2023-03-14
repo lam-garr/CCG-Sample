@@ -33,6 +33,16 @@
     max-width: 210px;
     min-width: 210px;
     background-color: blue;
+    display: grid;
+}
+
+.location-bottom-active{
+    max-height: 185px;
+    min-height: 185px;
+    max-width: 210px;
+    min-width: 210px;
+    background-color: pink;
+    display: grid;
 }
 
 .opp-power{
@@ -54,3 +64,4 @@
     background-color: gold;
     color: red;
 }
+

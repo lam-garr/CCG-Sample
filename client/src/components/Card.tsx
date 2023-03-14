@@ -6,7 +6,10 @@ import "../styles/Card.css";
 function Card(prop: cardPropInterface){
 
     const handleClassName = () => {
-        return 'card';
+
+        if(prop.draggingCard === `${prop.id}`) return "card-dragging";
+
+        return 'card-hand';
     }
 
     const handleDraggable = () => {

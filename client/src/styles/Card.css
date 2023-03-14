@@ -1,5 +1,7 @@
-.card{
-    max-width: 95px;
+.card-hand{
+    max-width: 70px;
+    min-width: 70px;
+    min-height: 100px;
     max-height: 100px;
     border: 1px solid greenyellow;
     padding: 1.5px;
@@ -8,7 +10,9 @@
 
 .card-img{
     max-width: inherit;
+    min-width: inherit;
     max-height: inherit;
+    min-height: inherit;
 }
 
 .card-power{
@@ -19,4 +23,8 @@
     border-radius: 50%;
     background-color: gold;
     color: red;
+}
+
+.card-dragging{
+    display: none;
 }
