@@ -48,6 +48,11 @@ function GameBoard(){
             setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
             setHand(prev => [...prev, extractedCardData[0]]);
         }
+
+        if(extractedCardData[1] === "right"){
+            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setHand(prev => [...prev, extractedCardData[0]]);
+        }
     }
 
     //handle dragover to hand
@@ -55,6 +60,7 @@ function GameBoard(){
         e.preventDefault();
         setHoverLeft(false);
         setHoverMid(false);
+        setHoverRight(false);
     }
 
     //Left location handling**************
@@ -93,6 +99,11 @@ function GameBoard(){
             setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
             setLeftLocation(prev => [...prev, extractedCardData[0]]);
         }
+
+        if(extractedCardData[1] === "right"){
+            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setLeftLocation(prev => [...prev, extractedCardData[0]]);
+        }
     }
 
     const [ hoverLeft, setHoverLeft ] = useState(false);
@@ -102,6 +113,7 @@ function GameBoard(){
         e.preventDefault();
         setHoverLeft(true);
         setHoverMid(false);
+        setHoverRight(false);
     }
 
     //handle drag leave from left location
@@ -144,6 +156,11 @@ function GameBoard(){
             setLeftLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
             setMiddleLocation(prev => [...prev, extractedCardData[0]]);
         }
+
+        if(extractedCardData[1] === "right"){
+            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setMiddleLocation(prev => [...prev, extractedCardData[0]]);
+        }
     }
 
     const [ hoverMid, setHoverMid ] = useState(false);
@@ -152,14 +169,67 @@ function GameBoard(){
     const handleDragOverMidLocation = (e: React.DragEvent) => {
         e.preventDefault();
         setHoverMid(true);
-        setHoverLeft(false);
     }
 
     //handle drag leave from mid location
     const handleDragLeaveMidLocation = (e: React.DragEvent) => {
         e.preventDefault();
         setHoverMid(false);
-        setHoverLeft(false);
+    }
+
+    //Right location handling***********
+
+    //handle drag from right location
+    const handleDragFromRight = (e: React.DragEvent, data: string) => {
+        e.dataTransfer.setData("handData", `${data}-right`);
+        
+        setTimeout(() => {
+            setDragging(data);
+        }, 0)
+    }
+
+    //handle drop to right location
+    const handleDropRightLocation = (e: React.DragEvent) => {
+        e.preventDefault();
+
+        setDragging("");
+
+        setHoverRight(false);
+
+        const cardData = e.dataTransfer.getData("handData") as string;
+
+        const extractedCardData = cardData.split("-");
+
+        if(rightLocation.includes(extractedCardData[0])) return;
+
+        if(extractedCardData[1] === "hand"){
+            setHand(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setRightLocation(prev => [...prev, extractedCardData[0]]);
+        }
+
+        if(extractedCardData[1] === "left"){
+            setLeftLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setRightLocation(prev => [...prev, extractedCardData[0]]);
+        }
+
+        if(extractedCardData[1] === "mid"){
+            setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
+            setRightLocation(prev => [...prev, extractedCardData[0]]);
+        }
+    }
+
+    const [ hoverRight, setHoverRight ] = useState(false);
+
+    //handle drag over to right location
+    const handleDragOverRightLocation = (e: React.DragEvent) => {
+        e.preventDefault();
+        setHoverRight(true);
+    }
+
+    //handle drag leave from right location
+    const handleDragLeaveRightLocation = (e: React.DragEvent) => {
+        e.preventDefault();
+        setHoverRight(false);
     }
 
     return(
@@ -167,6 +237,7 @@ function GameBoard(){
             <section className="main-locations">
                 <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging}/>
                 <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging}/>
+                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging}/>
             </section>
             <section className="bottom">
                 <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
