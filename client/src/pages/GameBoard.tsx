@@ -6,7 +6,7 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<any[]>(["goku"]);
+    const [ hand, setHand ] = useState<string[]>(["Goku"]);
 
     const [ leftLocation, setLeftLocation ] = useState<string[]>([]);
 
@@ -247,7 +247,7 @@ function GameBoard(){
             <section className="bottom">
                 <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
                     {hand && hand.map((card, i) => {
-                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd}/>)
+                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false}/>)
                     })}
                 </div>
             </section>
