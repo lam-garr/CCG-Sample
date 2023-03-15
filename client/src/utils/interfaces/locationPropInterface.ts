@@ -7,5 +7,7 @@ export default interface locationPropInterface{
     cards: string[],
     hover: boolean,
     draggingCard: string,
-    dragEndCard: (e: React.DragEvent) => void;
+    dragEndCard: (e: React.DragEvent) => void,
+    playedCards: string[],
+    myMana: number;
 }

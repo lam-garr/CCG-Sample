@@ -6,7 +6,7 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<string[]>(["Goku"]);
+    const [ hand, setHand ] = useState<string[]>(["Goku","Vegeta"]);
 
     const [ leftLocation, setLeftLocation ] = useState<string[]>([]);
 
@@ -15,6 +15,12 @@ function GameBoard(){
     const [ rightLocation, setRightLocation ] = useState<string[]>([]);
 
     const [ dragging, setDragging ] = useState<string>("");
+
+    //array for cards that have already been played and cannot be moved
+    const [ played, setPlayed ] = useState<string[]>([]);
+
+    //state for amount of energy or mana player has
+    const [ mana, setMana ] = useState(1);
 
     //handle drag from hand
     const handleDragFromHand = (e: React.DragEvent, data: string) => {
@@ -237,22 +243,36 @@ function GameBoard(){
         setHoverRight(false);
     }
 
+    //end turn function
+    const endMyTurn = () => {
+        setMana(prev => prev + 1);
+        leftLocation.forEach(item => setPlayed(prev => [...prev, item]));
+        middleLocation.forEach(item => setPlayed(prev => [...prev, item]));
+        rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
+
+        console.log(played);
+        console.log(mana);
+    }
+
     return(
         <main className="board">
             <section className="main-locations">
-                <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd}/>
-                <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd}/>
-                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd}/>
+                <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
             </section>
             <section className="bottom">
                 <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
                     {hand && hand.map((card, i) => {
-                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false}/>)
+                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"}/>)
                     })}
                 </div>
             </section>
+            <button onClick={endMyTurn}>end turn</button>
         </main>
     )
 }
 
 export default GameBoard;
+
+

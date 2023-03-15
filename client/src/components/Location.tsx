@@ -13,6 +13,13 @@ function Location(prop: locationPropInterface){
         }
     }
 
+    const handleCardsAlreadyPlayed = (card: string) => {
+
+        if((prop.playedCards.includes(card))) return false;
+
+        return true;
+    }
+
     return(
         <section className="main-location">
             <div className="location-top">
@@ -24,7 +31,7 @@ function Location(prop: locationPropInterface){
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
-                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard} inLocation={true}/>)
+                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)} manaAmount={prop.myMana} from={"location"}/>)
                 })}
             </div>
         </section>
