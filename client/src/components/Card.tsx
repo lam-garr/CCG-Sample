@@ -7,7 +7,9 @@ import "../styles/Card.css";
 function Card(prop: cardPropInterface){
 
     const handleMainClassName = () => {
-        if(prop.draggingCard === `${prop.id}`) return "card-dragging";
+        if(prop.draggingCard === `${prop.id.id}`) return "card-dragging";
+
+        if(prop.inLocation === true) return "card-inside-location";
 
         return 'card-hand';
     }
@@ -51,7 +53,7 @@ function Card(prop: cardPropInterface){
         //WIP
         if(id.id === "Goku") return 9000;
 
-        return 6900;
+        return id.power;
     }
 
     const [ cardPower, setCardPower ] = useState(69);

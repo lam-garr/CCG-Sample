@@ -8,7 +8,13 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"Goku", cost:2, power:9000}]);
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"Goku", cost:2, power:9000},
+                                                            {id:"Vegeta", cost:2, power:1600},
+                                                            {id:"buu", cost:2, power:9000},
+                                                        {id:"frieza", cost:2, power:9000},
+                                                        {id:"gohan", cost:2, power:9000},
+                                                        {id:"goten", cost:2, power:9000},
+                                                        {id:"trunks", cost:2, power:9000},]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
@@ -271,24 +277,29 @@ function GameBoard(){
 
     return(
         <main className="board">
-            <section className="main-locations">
-                <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
-                <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
-                <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+            <section className="left-board">
+
             </section>
-            <section className="bottom">
-                <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
-                    {hand && hand.map((card, i) => {
-                        return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"}/>)
-                    })}
-                </div>
+            <section className="mid-board">
+                <section className="board-locations">
+                    <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                    <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                    <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                </section>
+                <section className="bottom">
+                    <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
+                        {hand && hand.map((card, i) => {
+                            return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"}/>)
+                        })}
+                    </div>
+                </section>
             </section>
-            <button onClick={endMyTurn}>end turn</button>
-            <span>{mana}</span>
+            <section className="right-board">
+                <button onClick={endMyTurn}>end turn</button>
+                <span>{mana}</span>
+            </section>   
         </main>
     )
 }
 
 export default GameBoard;
-
-
