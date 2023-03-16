@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
+import cardInterface from "../utils/interfaces/cardInterface";
 import locationPropInterface from "../utils/interfaces/locationPropInterface";
 import "../styles/Location.css";
 
@@ -13,7 +14,7 @@ function Location(prop: locationPropInterface){
         }
     }
 
-    const handleCardsAlreadyPlayed = (card: string) => {
+    const handleCardsAlreadyPlayed = (card: cardInterface) => {
 
         if((prop.playedCards.includes(card))) return false;
 

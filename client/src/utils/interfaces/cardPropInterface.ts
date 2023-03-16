@@ -1,6 +1,8 @@
+import cardInterface from "./cardInterface";
+
 export default interface cardPropInterface{
-    id: string,
-    handleDrag: (e: React.DragEvent, data: string) => void,
+    id: cardInterface,
+    handleDrag: (e: React.DragEvent, data: cardInterface) => void,
     draggingCard: string,
     dragEnd: (e: React.DragEvent) => void,
     inLocation: boolean,

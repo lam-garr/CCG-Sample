@@ -1,13 +1,15 @@
+import cardInterface from "./cardInterface";
+
 export default interface locationPropInterface{
     id?: string,
-    handleDrag: (e: React.DragEvent, data: string) => void,
+    handleDrag: (e: React.DragEvent, data: cardInterface) => void,
     handleDragLeave: (e: React.DragEvent) => void,
     handleOnDrag: (e: React.DragEvent) => void,
     handleOnDrop: (e: React.DragEvent) => void,
-    cards: string[],
+    cards: cardInterface[],
     hover: boolean,
     draggingCard: string,
     dragEndCard: (e: React.DragEvent) => void,
-    playedCards: string[],
+    playedCards: cardInterface[],
     myMana: number;
 }

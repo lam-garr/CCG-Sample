@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import cardInterface from "../utils/interfaces/cardInterface";
 import cardPropInterface from "../utils/interfaces/cardPropInterface";
 import img from "../utils/imgs/dbz.jpeg";
 import "../styles/Card.css";
@@ -17,15 +18,7 @@ function Card(prop: cardPropInterface){
         return "card-cost";
     }
 
-    const handleDraggable = () => {
-        //if((prop.manaAmount) && (prop.isDraggable === true) && (cardCost <= prop.manaAmount)) return true;
-
-        if(prop.isDraggable === false) return false;
-
-        return false;
-    }
-
-    const handleCardDrag =(e: React.DragEvent, id: string) => {
+    const handleCardDrag =(e: React.DragEvent, id: cardInterface) => {
 
         if(prop.from === "hand"){
             if((prop.manaAmount) && cardCost <= prop.manaAmount){
@@ -46,17 +39,17 @@ function Card(prop: cardPropInterface){
             e.preventDefault();
             return;
         }
-
+ 
     }
 
-    const getImg = (id: string) => {
+    const getImg = (id: cardInterface) => {
         //WIP
         return img;
     }
 
-    const getCardPower = (id: string) => {
+    const getCardPower = (id: cardInterface) => {
         //WIP
-        if(id === "Goku") return 9000;
+        if(id.id === "Goku") return 9000;
 
         return 6900;
     }
@@ -68,7 +61,7 @@ function Card(prop: cardPropInterface){
     //useEffect to call api to get card power and cost, the nset them.
 
     return(
-        <div className={handleMainClassName()} draggable={handleDraggable()} onDragStart={(e) => handleCardDrag(e, prop.id)} onDragEnd={prop.dragEnd}>
+        <div className={handleMainClassName()} draggable onDragStart={(e) => handleCardDrag(e, prop.id)} onDragEnd={prop.dragEnd}>
             <img src={getImg(prop.id)} alt="" className="card-img"/>
             <span className="card-power">{getCardPower(prop.id)}</span>
             <span className={handleCardCostClassName()}>{cardCost}</span>

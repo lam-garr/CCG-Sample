@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from "react";
 import Location from "../components/Location";
 import Card from "../components/Card";
+import cardInterface from "../utils/interfaces/cardInterface";
+import findObjectWithId from "../utils/functions/findObjectWithId";
 import "../styles/GameBoard.css";
 
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<string[]>(["Goku","Vegeta"]);
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"Goku", cost:2, power:9000}]);
 
-    const [ leftLocation, setLeftLocation ] = useState<string[]>([]);
+    const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
-    const [ middleLocation, setMiddleLocation ] = useState<string[]>([]);
+    const [ middleLocation, setMiddleLocation ] = useState<cardInterface[]>([]);
 
-    const [ rightLocation, setRightLocation ] = useState<string[]>([]);
+    const [ rightLocation, setRightLocation ] = useState<cardInterface[]>([]);
 
     const [ dragging, setDragging ] = useState<string>("");
 
     //array for cards that have already been played and cannot be moved
-    const [ played, setPlayed ] = useState<string[]>([]);
+    const [ played, setPlayed ] = useState<cardInterface[]>([]);
 
     //state for amount of energy or mana player has
     const [ mana, setMana ] = useState(1);
 
     //handle drag from hand
-    const handleDragFromHand = (e: React.DragEvent, data: string) => {
-        e.dataTransfer.setData("handData", `${data}-hand`);
+    const handleDragFromHand = (e: React.DragEvent, data: cardInterface) => {
+        e.dataTransfer.setData("handData", `${data.id}-hand`);
         
         setTimeout(() => {
-            setDragging(data);
+            setDragging(data.id);
         }, 0)
     }
 
@@ -43,21 +45,26 @@ function GameBoard(){
 
         const extractedCardData = cardData.split("-");
 
-        if(hand.includes(extractedCardData[0])) return;
+        //if(hand.includes(dragObj)) return;
+
+        if(hand.find(obj => {return obj.id === extractedCardData[0]})) return;
 
         if(extractedCardData[1] === "left"){
-            setLeftLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setHand(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
+            setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setHand(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "mid"){
-            setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setHand(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
+            setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setHand(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "right"){
-            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setHand(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
+            setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setHand(prev => [...prev, targetObj]);
         }
     }
 
@@ -77,11 +84,11 @@ function GameBoard(){
     //Left location handling**************
 
     //handle drag from left location
-    const handleDragFromLeft = (e: React.DragEvent, data: string) => {
-        e.dataTransfer.setData("handData", `${data}-left`);
+    const handleDragFromLeft = (e: React.DragEvent, data: cardInterface) => {
+        e.dataTransfer.setData("handData", `${data.id}-left`);
         
         setTimeout(() => {
-            setDragging(data);
+            setDragging(data.id);
         }, 0)
     }
 
@@ -99,21 +106,26 @@ function GameBoard(){
 
         const extractedCardData = cardData.split("-");
 
-        if(leftLocation.includes(extractedCardData[0])) return;
+        //if(leftLocation.includes(extractedCardData[0])) return;
+
+        if(leftLocation.find(obj => {return obj.id === extractedCardData[0]})) return;
 
         if(extractedCardData[1] === "hand"){
-            setHand(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setLeftLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], hand);
+            setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "mid"){
-            setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setLeftLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
+            setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "right"){
-            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setLeftLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
+            setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
         }
     }
 
@@ -136,11 +148,11 @@ function GameBoard(){
     //Middle location handling**********
 
     //handle drag from middle location
-    const handleDragFromMid = (e: React.DragEvent, data: string) => {
-        e.dataTransfer.setData("handData", `${data}-mid`);
+    const handleDragFromMid = (e: React.DragEvent, data: cardInterface) => {
+        e.dataTransfer.setData("handData", `${data.id}-mid`);
         
         setTimeout(() => {
-            setDragging(data);
+            setDragging(data.id);
         }, 0)
     }
 
@@ -156,21 +168,24 @@ function GameBoard(){
 
         const extractedCardData = cardData.split("-");
 
-        if(middleLocation.includes(extractedCardData[0])) return;
+        if(middleLocation.find(obj => {return obj.id === extractedCardData[0]})) return;
 
         if(extractedCardData[1] === "hand"){
-            setHand(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setMiddleLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], hand);
+            setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "left"){
-            setLeftLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setMiddleLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
+            setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "right"){
-            setRightLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setMiddleLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
+            setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
         }
     }
 
@@ -191,11 +206,11 @@ function GameBoard(){
     //Right location handling***********
 
     //handle drag from right location
-    const handleDragFromRight = (e: React.DragEvent, data: string) => {
-        e.dataTransfer.setData("handData", `${data}-right`);
+    const handleDragFromRight = (e: React.DragEvent, data: cardInterface) => {
+        e.dataTransfer.setData("handData", `${data.id}-right`);
         
         setTimeout(() => {
-            setDragging(data);
+            setDragging(data.id);
         }, 0)
     }
 
@@ -211,21 +226,24 @@ function GameBoard(){
 
         const extractedCardData = cardData.split("-");
 
-        if(rightLocation.includes(extractedCardData[0])) return;
+        if(rightLocation.find(obj => {return obj.id === extractedCardData[0]})) return;
 
         if(extractedCardData[1] === "hand"){
-            setHand(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setRightLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], hand);
+            setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "left"){
-            setLeftLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setRightLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
+            setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
         }
 
         if(extractedCardData[1] === "mid"){
-            setMiddleLocation(prev => {return prev.filter(item => item !== extractedCardData[0])});
-            setRightLocation(prev => [...prev, extractedCardData[0]]);
+            const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
+            setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
+            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
         }
     }
 
@@ -249,9 +267,6 @@ function GameBoard(){
         leftLocation.forEach(item => setPlayed(prev => [...prev, item]));
         middleLocation.forEach(item => setPlayed(prev => [...prev, item]));
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
-
-        console.log(played);
-        console.log(mana);
     }
 
     return(
@@ -269,6 +284,7 @@ function GameBoard(){
                 </div>
             </section>
             <button onClick={endMyTurn}>end turn</button>
+            <span>{mana}</span>
         </main>
     )
 }
