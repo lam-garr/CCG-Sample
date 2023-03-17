@@ -10,6 +10,10 @@
 .cardInfo.active{
     transform: translate(2%, 2%) scale(1);
     padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-info-img{

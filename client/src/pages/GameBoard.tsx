@@ -283,13 +283,19 @@ function GameBoard(){
     const [ displayOpen, setDisplayOpen ] = useState(false);
 
     const toggleCardDisplay = () => {
+
         setDisplayOpen(!displayOpen);
+    }
+
+    const turnOffCardDisplay = () => {
+        setDisplayOpen(false);
+        setSelectedCard(undefined)
     }
 
     return(
         <main className="board">
             <section className="left-board">
-                <CardInfo id={selectedCard} infoOpen={displayOpen}/>
+                <CardInfo id={selectedCard} infoOpen={displayOpen} toggleDisplay={turnOffCardDisplay}/>
             </section>
             <section className="mid-board">
                 <section className="board-locations">
@@ -314,5 +320,3 @@ function GameBoard(){
 }
 
 export default GameBoard;
-
-//onclik for teh card component. each card has it's own id or object data twith it. setteh state with it 

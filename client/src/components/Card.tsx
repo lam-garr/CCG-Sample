@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import cardInterface from "../utils/interfaces/cardInterface";
 import cardPropInterface from "../utils/interfaces/cardPropInterface";
 import img from "../utils/imgs/dbz.jpeg";
+import trunks from "../utils/imgs/trunks.jpeg";
 import "../styles/Card.css";
 
 function Card(prop: cardPropInterface){
@@ -46,12 +47,16 @@ function Card(prop: cardPropInterface){
 
     const getImg = (id: cardInterface) => {
         //WIP
-        return img;
+        if(id.id === "Goku") return img;
+
+        if(id.id === "Trunks") return trunks;
     }
 
     const getCardPower = (id: cardInterface) => {
         //WIP
         if(id.id === "Goku") return 9000;
+
+        if(id.id === "Trunks") return 6000;
 
         return id.power;
     }
