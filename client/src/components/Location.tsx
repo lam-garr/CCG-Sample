@@ -32,7 +32,7 @@ function Location(prop: locationPropInterface){
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
-                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)} manaAmount={prop.myMana} from={"location"}/>)
+                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)} manaAmount={prop.myMana} from={"location"} selectCard={prop.selectCard} toggleDisplay={prop.toggleDisplay}/>)
                 })}
             </div>
         </section>

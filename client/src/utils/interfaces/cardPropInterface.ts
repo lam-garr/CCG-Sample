@@ -8,5 +8,7 @@ export default interface cardPropInterface{
     inLocation: boolean,
     isDraggable?: boolean,
     manaAmount?: number,
-    from: string;
+    from: string,
+    selectCard: (cardData: cardInterface) => void,
+    toggleDisplay: () => void;
 }

@@ -11,5 +11,7 @@ export default interface locationPropInterface{
     draggingCard: string,
     dragEndCard: (e: React.DragEvent) => void,
     playedCards: cardInterface[],
-    myMana: number;
+    myMana: number,
+    selectCard: (cardData: cardInterface) => void,
+    toggleDisplay: () => void;
 }

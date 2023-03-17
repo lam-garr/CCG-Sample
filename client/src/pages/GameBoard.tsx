@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Location from "../components/Location";
 import Card from "../components/Card";
+import CardInfo from "../components/CardInfo";
 import cardInterface from "../utils/interfaces/cardInterface";
 import findObjectWithId from "../utils/functions/findObjectWithId";
 import "../styles/GameBoard.css";
@@ -9,12 +10,7 @@ function GameBoard(){
 
     //handle data in hand and locations
     const [ hand, setHand ] = useState<cardInterface[]>([{id:"Goku", cost:2, power:9000},
-                                                            {id:"Vegeta", cost:2, power:1600},
-                                                            {id:"buu", cost:2, power:9000},
-                                                        {id:"frieza", cost:2, power:9000},
-                                                        {id:"gohan", cost:2, power:9000},
-                                                        {id:"goten", cost:2, power:9000},
-                                                        {id:"trunks", cost:2, power:9000},]);
+                                                        {id:"Trunks", cost:3, power:1600}]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
@@ -29,6 +25,9 @@ function GameBoard(){
 
     //state for amount of energy or mana player has
     const [ mana, setMana ] = useState(1);
+
+    //state for displaying cards on select
+    const [ selectedCard, setSelectedCard ] = useState<cardInterface>();
 
     //handle drag from hand
     const handleDragFromHand = (e: React.DragEvent, data: cardInterface) => {
@@ -275,21 +274,33 @@ function GameBoard(){
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
     }
 
+    //function for displaying card info
+    const displayCardInfo = (cardData: cardInterface) => {
+        setSelectedCard(cardData);
+    }
+
+    //open close card display
+    const [ displayOpen, setDisplayOpen ] = useState(false);
+
+    const toggleCardDisplay = () => {
+        setDisplayOpen(!displayOpen);
+    }
+
     return(
         <main className="board">
             <section className="left-board">
-
+                <CardInfo id={selectedCard} infoOpen={displayOpen}/>
             </section>
             <section className="mid-board">
                 <section className="board-locations">
-                    <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
-                    <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
-                    <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana}/>
+                    <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
+                    <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
+                    <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
                         {hand && hand.map((card, i) => {
-                            return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"}/>)
+                            return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>)
                         })}
                     </div>
                 </section>
@@ -303,3 +314,5 @@ function GameBoard(){
 }
 
 export default GameBoard;
+
+//onclik for teh card component. each card has it's own id or object data twith it. setteh state with it 
