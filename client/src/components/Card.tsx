@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import cardInterface from "../utils/interfaces/cardInterface";
 import cardPropInterface from "../utils/interfaces/cardPropInterface";
-import img from "../utils/imgs/dbz.jpeg";
-import trunks from "../utils/imgs/trunks.jpeg";
 import "../styles/Card.css";
 
 function Card(prop: cardPropInterface){
@@ -47,16 +45,18 @@ function Card(prop: cardPropInterface){
 
     const getImg = (id: cardInterface) => {
         //WIP
-        if(id.id === "Goku") return img;
+        if(id.name === "Vegeta") return "";
 
-        if(id.id === "Trunks") return trunks;
+        if(id.name === "Trunks") return "";
+
+        if(id.name === "Vegito") return "";
     }
 
     const getCardPower = (id: cardInterface) => {
         //WIP
-        if(id.id === "Goku") return 9000;
+        if(id.name === "Goku") return id.power;
 
-        if(id.id === "Trunks") return 6000;
+        if(id.name === "Trunks") return id.power;
 
         return id.power;
     }
@@ -70,13 +70,13 @@ function Card(prop: cardPropInterface){
 
     const [ cardCost, setCardCost ] = useState(2);
 
-    //useEffect to call api to get card power and cost, the nset them.
+    //useEffect to call api to get card power and cost, then set them.
 
     return(
         <div className={handleMainClassName()} draggable onDragStart={(e) => handleCardDrag(e, prop.id)} onDragEnd={prop.dragEnd} onClick={(e) => {handleSelectedCard(e, prop.id)}}>
             <img src={getImg(prop.id)} alt="" className="card-img"/>
             <span className="card-power">{getCardPower(prop.id)}</span>
-            <span className={handleCardCostClassName()}>{cardCost}</span>
+            <span className={handleCardCostClassName()}>{getCardPower(prop.id)}</span>
         </div>
     )
 }

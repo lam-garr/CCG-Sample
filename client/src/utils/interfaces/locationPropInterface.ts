@@ -1,7 +1,8 @@
+import locationInterface from "./locationInterface";
 import cardInterface from "./cardInterface";
 
 export default interface locationPropInterface{
-    id?: string,
+    id: locationInterface,
     handleDrag: (e: React.DragEvent, data: cardInterface) => void,
     handleDragLeave: (e: React.DragEvent) => void,
     handleOnDrag: (e: React.DragEvent) => void,
@@ -13,5 +14,6 @@ export default interface locationPropInterface{
     playedCards: cardInterface[],
     myMana: number,
     selectCard: (cardData: cardInterface) => void,
-    toggleDisplay: () => void;
+    toggleDisplay: () => void,
+    handleLocationDisplay: (locationData: locationInterface) => void;
 }

@@ -3,6 +3,8 @@ import Card from "./Card";
 import cardInterface from "../utils/interfaces/cardInterface";
 import locationPropInterface from "../utils/interfaces/locationPropInterface";
 import "../styles/Location.css";
+import locationInterface from "../utils/interfaces/locationInterface";
+
 
 function Location(prop: locationPropInterface){
 
@@ -21,14 +23,20 @@ function Location(prop: locationPropInterface){
         return true;
     }
 
+    const handleSelectedLocation = (e:any, locationData: locationInterface) => {
+        prop.handleLocationDisplay(locationData);
+        prop.toggleDisplay();
+    }
+
     return(
         <section className="main-location">
             <div className="location-top">
 
             </div>
-            <div className="location-mid">
-                <span className="opp-power">6</span>
-                <span className="user-power">9</span>
+            <div className="location-mid" onClick={(e) => {handleSelectedLocation(e, prop.id)}}>
+                <span>{prop.id.name}</span>
+                <span className="opp-power">{prop.id.oppPower}</span>
+                <span className="user-power">{prop.id.playerPower}</span>
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {

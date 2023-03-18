@@ -3,14 +3,16 @@ import Location from "../components/Location";
 import Card from "../components/Card";
 import CardInfo from "../components/CardInfo";
 import cardInterface from "../utils/interfaces/cardInterface";
+import locationInterface from "../utils/interfaces/locationInterface";
 import findObjectWithId from "../utils/functions/findObjectWithId";
 import "../styles/GameBoard.css";
 
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"Goku", cost:2, power:9000},
-                                                        {id:"Trunks", cost:3, power:1600}]);
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000},
+                                                        {id:"2222222", name:"Trunks", description:"Burning Attack!", cost:3, power:1600},
+                                                        {id:"333333", name:"Vegito", description:"AAAAAHHHHHHHHHH!", cost:3, power:1600}]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
@@ -28,6 +30,9 @@ function GameBoard(){
 
     //state for displaying cards on select
     const [ selectedCard, setSelectedCard ] = useState<cardInterface>();
+
+    //state for displaying locations on select
+    const [ selectedLocation, setSelectedLocation ] = useState<locationInterface>();
 
     //handle drag from hand
     const handleDragFromHand = (e: React.DragEvent, data: cardInterface) => {
@@ -283,25 +288,34 @@ function GameBoard(){
     const [ displayOpen, setDisplayOpen ] = useState(false);
 
     const toggleCardDisplay = () => {
-
         setDisplayOpen(!displayOpen);
     }
 
     const turnOffCardDisplay = () => {
         setDisplayOpen(false);
-        setSelectedCard(undefined)
+        setLocationSelected(false);
     }
+
+    //handle location display
+    const [ locationSelected, setLocationSelected ] = useState(false);
+
+    const handleDisplayingLocation = (locationData: locationInterface) => {
+        setLocationSelected(true);
+        setDisplayOpen(!displayOpen);
+        setSelectedLocation(locationData);
+    }
+
 
     return(
         <main className="board">
             <section className="left-board">
-                <CardInfo id={selectedCard} infoOpen={displayOpen} toggleDisplay={turnOffCardDisplay}/>
+                <CardInfo id={selectedCard} infoOpen={displayOpen} toggleDisplay={turnOffCardDisplay} isLocation={locationSelected} locationId={selectedLocation}/>
             </section>
             <section className="mid-board">
                 <section className="board-locations">
-                    <Location handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
-                    <Location handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
-                    <Location handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>
+                    <Location id={{id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                    <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                    <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>

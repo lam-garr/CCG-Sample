@@ -33,3 +33,37 @@
     color: white;
 }
 
+.locationInfo{
+    position: fixed;
+    height: inherit;
+    width: inherit;
+    transform: translate(-1%, -1%) scale(0);
+    margin: 0;
+    z-index: 90;
+}
+
+.locationInfo.active{
+    transform: translate(2%, 2%) scale(1);
+    padding: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.location-info-img{
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 400px;
+    min-height: 400px;
+}
+
+.location-display-name{
+    text-align: center;
+    color: white;
+}
+
+.location-display-info{
+    text-align: center;
+    color: white;
+}

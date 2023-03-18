@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-image: url("../utils/imgs/background.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

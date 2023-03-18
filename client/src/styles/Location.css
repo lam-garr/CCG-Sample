@@ -76,3 +76,9 @@
     color: red;
 }
 
+.locationImg{
+    max-height: 115px;
+    min-height: 115px;
+    max-width: 200px;
+    min-width: 200px;
+}
