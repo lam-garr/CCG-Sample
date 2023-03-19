@@ -5,7 +5,6 @@ import locationPropInterface from "../utils/interfaces/locationPropInterface";
 import "../styles/Location.css";
 import locationInterface from "../utils/interfaces/locationInterface";
 
-
 function Location(prop: locationPropInterface){
 
     const getBottomLocationClassName = () => {
@@ -48,3 +47,5 @@ function Location(prop: locationPropInterface){
 }
 
 export default Location;
+
+//style={{backgroundImage: `url(${img})`}}

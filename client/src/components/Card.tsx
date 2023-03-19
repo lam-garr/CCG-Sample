@@ -76,7 +76,7 @@ function Card(prop: cardPropInterface){
         <div className={handleMainClassName()} draggable onDragStart={(e) => handleCardDrag(e, prop.id)} onDragEnd={prop.dragEnd} onClick={(e) => {handleSelectedCard(e, prop.id)}}>
             <img src={getImg(prop.id)} alt="" className="card-img"/>
             <span className="card-power">{getCardPower(prop.id)}</span>
-            <span className={handleCardCostClassName()}>{getCardPower(prop.id)}</span>
+            <span className={handleCardCostClassName()}>{prop.id.cost}</span>
         </div>
     )
 }

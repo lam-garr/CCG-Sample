@@ -25,12 +25,12 @@
 
 .card-display-name{
     text-align: center;
-    color: white;
+    color: grey;
 }
 
 .card-display-info{
     text-align: center;
-    color: white;
+    color: grey;
 }
 
 .locationInfo{
@@ -60,10 +60,10 @@
 
 .location-display-name{
     text-align: center;
-    color: white;
+    color: grey;
 }
 
 .location-display-info{
     text-align: center;
-    color: white;
+    color: grey;
 }

@@ -28,11 +28,19 @@ function GameBoard(){
     //state for amount of energy or mana player has
     const [ mana, setMana ] = useState(1);
 
+    //state for handling turn number
+    const [ turn, setTurn ] = useState(1);
+
     //state for displaying cards on select
     const [ selectedCard, setSelectedCard ] = useState<cardInterface>();
 
     //state for displaying locations on select
     const [ selectedLocation, setSelectedLocation ] = useState<locationInterface>();
+
+    //handle energy or mana
+    const handleMana = (amount: number) => {
+        setMana(prev => prev + amount);
+    }
 
     //handle drag from hand
     const handleDragFromHand = (e: React.DragEvent, data: cardInterface) => {
@@ -62,19 +70,28 @@ function GameBoard(){
         if(extractedCardData[1] === "left"){
             const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setHand(prev => [...prev, targetObj]);
+            if(targetObj){
+                setHand(prev => [...prev, targetObj]);
+                handleMana(targetObj.cost);
+            }
         }
 
         if(extractedCardData[1] === "mid"){
             const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setHand(prev => [...prev, targetObj]);
+            if(targetObj){
+                setHand(prev => [...prev, targetObj]);
+                handleMana(targetObj.cost);
+            }
         }
 
         if(extractedCardData[1] === "right"){
             const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setHand(prev => [...prev, targetObj]);
+            if(targetObj){
+                setHand(prev => [...prev, targetObj]);
+                handleMana(targetObj.cost);
+            }
         }
     }
 
@@ -123,19 +140,28 @@ function GameBoard(){
         if(extractedCardData[1] === "hand"){
             const targetObj = findObjectWithId(extractedCardData[0], hand);
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setLeftLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "mid"){
             const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setLeftLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "right"){
             const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setLeftLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setLeftLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
     }
 
@@ -183,19 +209,28 @@ function GameBoard(){
         if(extractedCardData[1] === "hand"){
             const targetObj = findObjectWithId(extractedCardData[0], hand);
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setMiddleLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "left"){
             const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setMiddleLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "right"){
             const targetObj = findObjectWithId(extractedCardData[0], rightLocation);
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setMiddleLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setMiddleLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
     }
 
@@ -241,19 +276,28 @@ function GameBoard(){
         if(extractedCardData[1] === "hand"){
             const targetObj = findObjectWithId(extractedCardData[0], hand);
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setRightLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "left"){
             const targetObj = findObjectWithId(extractedCardData[0], leftLocation);
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setRightLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
 
         if(extractedCardData[1] === "mid"){
             const targetObj = findObjectWithId(extractedCardData[0], middleLocation);
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
-            if(targetObj) setRightLocation(prev => [...prev, targetObj]);
+            if(targetObj){
+                setRightLocation(prev => [...prev, targetObj]);
+                handleMana(-Math.abs(targetObj.cost));
+            }
         }
     }
 
@@ -273,11 +317,16 @@ function GameBoard(){
 
     //end turn function
     const endMyTurn = () => {
-        setMana(prev => prev + 1);
+        setTurn(prev => prev + 1);
         leftLocation.forEach(item => setPlayed(prev => [...prev, item]));
         middleLocation.forEach(item => setPlayed(prev => [...prev, item]));
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
     }
+
+    //useEffect to handle mana change when turn ends
+    useEffect(() => {
+        setMana(turn);
+    }, [turn])
 
     //function for displaying card info
     const displayCardInfo = (cardData: cardInterface) => {
@@ -326,7 +375,7 @@ function GameBoard(){
                 </section>
             </section>
             <section className="right-board">
-                <button onClick={endMyTurn}>end turn</button>
+                <button onClick={endMyTurn}>{`end turn ${turn}`}</button>
                 <span>{mana}</span>
             </section>   
         </main>
