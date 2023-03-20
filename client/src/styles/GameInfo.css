@@ -1,0 +1,65 @@
+.board-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: inherit;
+    width: inherit;
+}
+
+.snap-btn{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    background-color: purple;
+}
+
+.opp-info{
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.user-btns{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+    width: inherit;
+}
+
+.end-turn-btn{
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid pink;
+    color: rgb(15, 15, 24);
+    background-color: rgb(221, 72, 221);
+    font-size: large;
+    font-weight: bold;
+}
+
+.retreat-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: inherit;
+}
+
+.extra-space-top{
+    height: 5px;
+    width: inherit;
+}
+
+.extra-space-bottom{
+    height: 50px;
+    width: inherit;
+}

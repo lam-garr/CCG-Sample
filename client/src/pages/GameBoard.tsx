@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Location from "../components/Location";
 import Card from "../components/Card";
 import CardInfo from "../components/CardInfo";
+import GameInfo from "../components/GameInfo";
 import cardInterface from "../utils/interfaces/cardInterface";
 import locationInterface from "../utils/interfaces/locationInterface";
 import findObjectWithId from "../utils/functions/findObjectWithId";
@@ -151,7 +152,7 @@ function GameBoard(){
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setLeftLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
 
@@ -160,7 +161,7 @@ function GameBoard(){
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setLeftLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
     }
@@ -220,7 +221,7 @@ function GameBoard(){
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setMiddleLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
 
@@ -229,7 +230,7 @@ function GameBoard(){
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setMiddleLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
     }
@@ -287,7 +288,7 @@ function GameBoard(){
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setRightLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
 
@@ -296,7 +297,7 @@ function GameBoard(){
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setRightLocation(prev => [...prev, targetObj]);
-                handleMana(-Math.abs(targetObj.cost));
+                
             }
         }
     }
@@ -375,8 +376,7 @@ function GameBoard(){
                 </section>
             </section>
             <section className="right-board">
-                <button onClick={endMyTurn}>{`end turn ${turn}`}</button>
-                <span>{mana}</span>
+               <GameInfo userHand={hand.length} userDeck={0} oppHand={0} oppDeck={0} mana={mana} turn={turn} endTurnFn={endMyTurn}/>
             </section>   
         </main>
     )
