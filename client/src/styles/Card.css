@@ -49,6 +49,35 @@
     min-height: 85px;
     max-height: 85px;
     border: 1px solid rgb(245, 233, 219);
-
     position: relative;
+}
+
+.card-contents{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.card-front{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: pink;
+    border: 1px solid black;
+    transform: rotateY(180deg);
+}
+
+.card-back{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background-color: red;
+}
+
+.card-contents.active{
+    transform: rotateY(180deg);
 }
