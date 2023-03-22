@@ -11,9 +11,9 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000},
-                                                        {id:"2222222", name:"Trunks", description:"Burning Attack!", cost:3, power:1600},
-                                                        {id:"333333", name:"Vegito", description:"AAAAAHHHHHHHHHH!", cost:3, power:1600}]);
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000, flip: false},
+                                                        {id:"2222222", name:"Trunks", description:"Burning Attack!", cost:3, power:1600, flip: false}
+                                                        ]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
@@ -37,6 +37,9 @@ function GameBoard(){
 
     //state for displaying locations on select
     const [ selectedLocation, setSelectedLocation ] = useState<locationInterface>();
+
+    //state for handling the order cards are played
+    const [ playOrder, setPlayOrder ] = useState<cardInterface[]>([]);
 
     //handle energy or mana
     const handleMana = (amount: number) => {
@@ -73,6 +76,7 @@ function GameBoard(){
             setLeftLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setHand(prev => [...prev, targetObj]);
+                setPlayOrder(prev => {return prev.filter(item => item !== targetObj)});
                 handleMana(targetObj.cost);
             }
         }
@@ -82,6 +86,7 @@ function GameBoard(){
             setMiddleLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setHand(prev => [...prev, targetObj]);
+                setPlayOrder(prev => {return prev.filter(item => item !== targetObj)});
                 handleMana(targetObj.cost);
             }
         }
@@ -91,6 +96,7 @@ function GameBoard(){
             setRightLocation(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setHand(prev => [...prev, targetObj]);
+                setPlayOrder(prev => {return prev.filter(item => item !== targetObj)});
                 handleMana(targetObj.cost);
             }
         }
@@ -143,6 +149,7 @@ function GameBoard(){
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setLeftLocation(prev => [...prev, targetObj]);
+                setPlayOrder(prev => [...prev, targetObj]);
                 handleMana(-Math.abs(targetObj.cost));
             }
         }
@@ -212,6 +219,7 @@ function GameBoard(){
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setMiddleLocation(prev => [...prev, targetObj]);
+                setPlayOrder(prev => [...prev, targetObj]);
                 handleMana(-Math.abs(targetObj.cost));
             }
         }
@@ -279,6 +287,7 @@ function GameBoard(){
             setHand(prev => {return prev.filter(item => item.id !== extractedCardData[0])});
             if(targetObj){
                 setRightLocation(prev => [...prev, targetObj]);
+                setPlayOrder(prev => [...prev, targetObj]);
                 handleMana(-Math.abs(targetObj.cost));
             }
         }
@@ -322,6 +331,28 @@ function GameBoard(){
         leftLocation.forEach(item => setPlayed(prev => [...prev, item]));
         middleLocation.forEach(item => setPlayed(prev => [...prev, item]));
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
+
+        //disable end turn button, then enable at end
+
+        const mock: [cardInterface] = [{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000, flip: true}]
+
+        playOrder.forEach(card => {
+            if(leftLocation.includes(card)){
+                //set location with data from server
+                setLeftLocation(mock);
+            }
+
+            /* if(middleLocation.includes(card)){
+
+            }
+
+            if(rightLocation.includes(card)){
+
+            } */
+        })
+
+        //clear cards played this turn
+        setPlayOrder([]);
     }
 
     //useEffect to handle mana change when turn ends
@@ -360,17 +391,34 @@ function GameBoard(){
         <main className="board">
             <section className="left-board">
                 <CardInfo id={selectedCard} infoOpen={displayOpen} toggleDisplay={turnOffCardDisplay} isLocation={locationSelected} locationId={selectedLocation}/>
+                {playOrder && playOrder.map((card) => {
+                    return(<span>{card.name}</span>)
+                })}
             </section>
             <section className="mid-board">
                 <section className="board-locations">
-                    <Location id={{id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation} handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation} hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
-                    <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation} handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation} hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
-                    <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation} handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation} hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd} playedCards={played} myMana={mana} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                    <Location id={{id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation}
+                        handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation}
+                        hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd}
+                        playedCards={played} myMana={mana} selectCard={displayCardInfo}
+                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                    <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
+                        handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
+                        hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd}
+                        playedCards={played} myMana={mana} selectCard={displayCardInfo}
+                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/> 
+                    <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
+                        handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
+                        hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd}
+                        playedCards={played} myMana={mana} selectCard={displayCardInfo} 
+                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
                         {hand && hand.map((card, i) => {
-                            return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging} dragEnd={cardDragEnd} inLocation={false} manaAmount={mana} from={"hand"} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>)
+                            return(<Card handleDrag={handleDragFromHand} id={card} draggingCard={dragging}
+                                    dragEnd={cardDragEnd} inLocation={false} manaAmount={mana}
+                                    from={"hand"} selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay}/>)
                         })}
                     </div>
                 </section>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
+import PlayingCard from "./PlayingCard";
 import cardInterface from "../utils/interfaces/cardInterface";
 import locationPropInterface from "../utils/interfaces/locationPropInterface";
 import "../styles/Location.css";
@@ -39,8 +40,15 @@ function Location(prop: locationPropInterface){
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
-                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard} dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)} manaAmount={prop.myMana} from={"location"} selectCard={prop.selectCard} toggleDisplay={prop.toggleDisplay}/>)
+                    if(card.flip === true){
+                        return(<PlayingCard card={card}/>)
+                    }
+                    return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard}
+                        dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)}
+                        manaAmount={prop.myMana} from={"location"} selectCard={prop.selectCard}
+                        toggleDisplay={prop.toggleDisplay}/>)
                 })}
+                {/**have whole other component for flip cards */}
             </div>
         </section>
     )
@@ -49,3 +57,5 @@ function Location(prop: locationPropInterface){
 export default Location;
 
 //style={{backgroundImage: `url(${img})`}}
+
+//play order for each if location contains played item card, 

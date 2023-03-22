@@ -3,5 +3,6 @@ export default interface cardInterface{
     name: string,
     description: string,
     cost: number,
-    power: number;
+    power: number,
+    flip: boolean;
 }
