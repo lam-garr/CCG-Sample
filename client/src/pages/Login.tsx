@@ -96,17 +96,17 @@ function Login(){
 
     return(
         <main>
-            <div className="content">
+            <div className="log-in-content">
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit}>
                     <Input changeHandler={handleLoginChange} value={loginInput} type="text" placeholder="Username" errorMessage={LoginErrorMessage} required={true}/>
                     <Input changeHandler={handlePasswordChange} value={passwordInput} type="password" placeholder="Password" errorMessage={pwErrorMessage} required={true}/>
-                    <div className="submit">
-                    {apiErr && <span className="apiErr">Error logging in, please try again</span>}
-                    <button className="submitBtn" type="submit" disabled={fetching}>Login</button>
+                    <div className="log-in-submit">
+                    {apiErr && <span className="log-in-apiErr">Error logging in, please try again</span>}
+                    <button className="log-in-submitBtn" type="submit" disabled={fetching}>Login</button>
                     </div>
                 </form>
-                <div className="members">
+                <div className="log-in-members">
                 Not a member? <Link to="/sign-up">Sign Up</Link>
                 </div>
             </div>
