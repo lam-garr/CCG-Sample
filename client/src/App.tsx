@@ -5,6 +5,7 @@ import SignupPage from "./pages/Signup";
 import HomePage from "./pages/Home";
 import GameBoard from "./pages/GameBoard";
 import Protected from "./pages/Protected";
+import Authorized from "./pages/Authorized";
 import "./styles/App.css";
 
 function App() {
@@ -14,8 +15,10 @@ function App() {
         <Route element={<Protected/>}>
           <Route path="/play" element={<GameBoard/>}></Route>
         </Route>
-        <Route path="/log-in" element={<LoginPage/>}></Route>
-        <Route path="/sign-up" element={<SignupPage/>}></Route>
+        <Route element={<Authorized/>}>
+          <Route path="/log-in" element={<LoginPage/>}></Route>
+          <Route path="/sign-up" element={<SignupPage/>}></Route>
+        </Route>
         <Route path="/" element={<HomePage/>}></Route>
       </Routes>
     </BrowserRouter>
