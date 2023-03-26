@@ -1,5 +1,6 @@
 import cardInterface from "./cardInterface";
 
 export default interface playingCardInterface{
-    card: cardInterface;
+    card: cardInterface,
+    index: number;
 }

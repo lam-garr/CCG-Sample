@@ -21,6 +21,12 @@ function GameBoard(){
 
     const [ rightLocation, setRightLocation ] = useState<cardInterface[]>([]);
 
+    const [ oppLeftLocation, setOppLeftLocation ] = useState<cardInterface[]>([]);
+
+    const [ oppMiddleLocation, setOppMiddleLocation ] = useState<cardInterface[]>([]);
+
+    const [ oppRightLocation, setOppRightLocation ] = useState<cardInterface[]>([]);
+
     const [ dragging, setDragging ] = useState<string>("");
 
     //array for cards that have already been played and cannot be moved
@@ -40,6 +46,9 @@ function GameBoard(){
 
     //state for handling the order cards are played
     const [ playOrder, setPlayOrder ] = useState<cardInterface[]>([]);
+
+    //state for handling the order opponent's cards are played
+    const [ oppPlayOrder, setOppPlayOrder ] = useState<cardInterface[]>([]);
 
     //handle energy or mana
     const handleMana = (amount: number) => {
@@ -333,22 +342,34 @@ function GameBoard(){
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
 
         //disable end turn button, then enable at end
-
-        const mock: [cardInterface] = [{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000, flip: true}]
-
+        
         playOrder.forEach(card => {
             if(leftLocation.includes(card)){
                 //set location with data from server
-                setLeftLocation(mock);
             }
 
-            /* if(middleLocation.includes(card)){
+            if(middleLocation.includes(card)){
 
             }
 
             if(rightLocation.includes(card)){
 
-            } */
+            }
+        })
+
+        oppPlayOrder.forEach(card => {
+            //check if returned location data for opp contains the card played
+            //apiResponse.oppLeftLocation.includes(card)
+            if(oppLeftLocation.includes(card)){
+                //set opp location with data from server
+            }
+
+            if(oppMiddleLocation.includes(card)){
+            }
+
+            if(oppRightLocation.includes(card)){
+
+            }
         })
 
         //clear cards played this turn
@@ -399,19 +420,19 @@ function GameBoard(){
                 <section className="board-locations">
                     <Location id={{id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation}
                         handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation}
-                        hover={hoverLeft} draggingCard={dragging} dragEndCard={cardDragEnd}
-                        playedCards={played} myMana={mana} selectCard={displayCardInfo}
-                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                        oppCards={oppLeftLocation} hover={hoverLeft} draggingCard={dragging}
+                        dragEndCard={cardDragEnd} playedCards={played} myMana={mana} 
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
                     <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
                         handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
-                        hover={hoverMid} draggingCard={dragging} dragEndCard={cardDragEnd}
-                        playedCards={played} myMana={mana} selectCard={displayCardInfo}
-                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/> 
+                        oppCards={oppMiddleLocation} hover={hoverMid} draggingCard={dragging}
+                        dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/> 
                     <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
                         handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
-                        hover={hoverRight} draggingCard={dragging} dragEndCard={cardDragEnd}
-                        playedCards={played} myMana={mana} selectCard={displayCardInfo} 
-                        toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                        oppCards={oppRightLocation} hover={hoverRight} draggingCard={dragging}
+                        dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>

@@ -31,7 +31,9 @@ function Location(prop: locationPropInterface){
     return(
         <section className="main-location">
             <div className="location-top">
-
+                {prop.oppCards && prop.oppCards.map((card, i) => {
+                    return(<PlayingCard card={card} index={i}/>);
+                })}
             </div>
             <div className="location-mid" onClick={(e) => {handleSelectedLocation(e, prop.id)}}>
                 <span>{prop.id.name}</span>
@@ -41,7 +43,7 @@ function Location(prop: locationPropInterface){
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
                     if(card.flip === true){
-                        return(<PlayingCard card={card}/>)
+                        return(<PlayingCard card={card} index={i}/>)
                     }
                     return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard}
                         dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)}
