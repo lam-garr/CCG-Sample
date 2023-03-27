@@ -11,7 +11,7 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:2, power:9000, flip: false},
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
                                                         {id:"2222222", name:"Trunks", description:"Burning Attack!", cost:3, power:1600, flip: false}
                                                         ]);
 
@@ -21,7 +21,7 @@ function GameBoard(){
 
     const [ rightLocation, setRightLocation ] = useState<cardInterface[]>([]);
 
-    const [ oppLeftLocation, setOppLeftLocation ] = useState<cardInterface[]>([]);
+    const [ oppLeftLocation, setOppLeftLocation ] = useState<cardInterface[]>([{id:"111111", name: "gohan", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]);
 
     const [ oppMiddleLocation, setOppMiddleLocation ] = useState<cardInterface[]>([]);
 
@@ -48,7 +48,11 @@ function GameBoard(){
     const [ playOrder, setPlayOrder ] = useState<cardInterface[]>([]);
 
     //state for handling the order opponent's cards are played
-    const [ oppPlayOrder, setOppPlayOrder ] = useState<cardInterface[]>([]);
+    const [ oppPlayOrder, setOppPlayOrder ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+    {id:"123456", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]);
+
+    //state for display priority
+    const [ priority, setPriority ] = useState<string>("player");
 
     //handle energy or mana
     const handleMana = (amount: number) => {
@@ -334,6 +338,14 @@ function GameBoard(){
         setHoverRight(false);
     }
 
+    const handleTime = (time: number) => {
+        if(time === 0) return 1000;
+
+        if(time === 1) return 2000;
+
+        return (time + 1) * 1000;
+    }
+
     //end turn function
     const endMyTurn = () => {
         setTurn(prev => prev + 1);
@@ -342,38 +354,106 @@ function GameBoard(){
         rightLocation.forEach(item => setPlayed(prev => [...prev, item]));
 
         //disable end turn button, then enable at end
+
+        const playerMock1 = [{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
+        const oppMock1 = [{id:"111111", name: "gohan", description:"Galick Gun!!!", cost:1, power:9000, flip: false},{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
+        const oppMock2 = [{id:"123456", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
         
-        playOrder.forEach(card => {
-            if(leftLocation.includes(card)){
-                //set location with data from server
-            }
+        //check priority for cards to be displayed
 
-            if(middleLocation.includes(card)){
+        if(priority === "player"){
+            playOrder.forEach(card => {
+                if(leftLocation.includes(card)){
+                    //set location with data from server
+                    setLeftLocation(playerMock1)
+                }
+    
+                if(middleLocation.includes(card)){
+    
+                }
+    
+                if(rightLocation.includes(card)){
+    
+                }
+            })
 
-            }
+            setTimeout(() => {
+                oppPlayOrder.forEach((card, i) => {
+                    //check if returned location data for opp contains the card played
+                    //apiResponse.oppLeftLocation.includes(card)
+                    if(true){
+                        //set opp location with data from server
+                        setTimeout(() => {
+                            setOppLeftLocation(oppMock1)
+                        }, i * 1000)
+                    }
+        
+                    if(true){
+                        //set opp location with data from server
+                        setTimeout(() => {
+                            setOppMiddleLocation(oppMock2)
+                        }, i * 1000)
+                    }
+        
+                    if(oppRightLocation.includes(card)){
+        
+                    }
+                })
 
-            if(rightLocation.includes(card)){
+                //finish end turn tasks
 
-            }
-        })
+                //clear cards played this turn
+                setPlayOrder([]);
+                
+                return;
+            }, ((playOrder.length) * 1000));
+        }
 
-        oppPlayOrder.forEach(card => {
-            //check if returned location data for opp contains the card played
-            //apiResponse.oppLeftLocation.includes(card)
-            if(oppLeftLocation.includes(card)){
-                //set opp location with data from server
-            }
+        if(priority === "opponent"){
+            oppPlayOrder.forEach((card, i) => {
+                //check if returned location data for opp contains the card played
+                //apiResponse.oppLeftLocation.includes(card)
+                if(true){
+                    //set opp location with data from server
+                    setTimeout(() => {
+                        setOppLeftLocation(oppMock1)
+                    }, i * 1000)
+                }
+    
+                if(true){
+                    //set opp location with data from server
+                    setTimeout(() => {
+                        setOppMiddleLocation(oppMock2)
+                    }, i * 1000)
+                }
+    
+                if(oppRightLocation.includes(card)){
+    
+                }
+            })
 
-            if(oppMiddleLocation.includes(card)){
-            }
+            setTimeout(() => {
+                playOrder.forEach(card => {
+                    if(leftLocation.includes(card)){
+                        //set location with data from server
+                        setLeftLocation(playerMock1)
+                    }
+        
+                    if(middleLocation.includes(card)){
+        
+                    }
+        
+                    if(rightLocation.includes(card)){
+        
+                    }
+                })
 
-            if(oppRightLocation.includes(card)){
+                //clear cards played this turn
+        setPlayOrder([]);   
 
-            }
-        })
+            }, ((oppPlayOrder.length) * 1000))
+        }
 
-        //clear cards played this turn
-        setPlayOrder([]);
     }
 
     //useEffect to handle mana change when turn ends
