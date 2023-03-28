@@ -17,5 +17,6 @@ export default interface locationPropInterface{
     selectCard: (cardData: cardInterface) => void,
     toggleDisplay: () => void,
     handleLocationDisplay: (locationData: locationInterface) => void,
-    playerTimeOutLength: number;
+    playerTimeOutLength: number,
+    oppTimeOutLength: number;
 }

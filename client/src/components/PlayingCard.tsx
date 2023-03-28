@@ -11,6 +11,10 @@ function PlayingCard(prop: playingCardInterface){
             return ((prop.playerTimeOutLength + prop.index + 1) * 1000)
         }
 
+        if(prop.oppTimeOutLength){
+            return ((prop.oppTimeOutLength + prop.index + 1) * 1000)
+        }
+
         if(prop.index === 0){
             return 1000;
         }

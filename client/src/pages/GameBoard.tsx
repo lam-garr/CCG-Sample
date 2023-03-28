@@ -29,6 +29,7 @@ function GameBoard(){
 
     const [ playerTimeOut, setPlayerTimeOut ] = useState(0);
 
+    const [ oppTimeOut, setOppTimeOut ] = useState(0);
 
     const [ dragging, setDragging ] = useState<string>("");
 
@@ -365,6 +366,24 @@ function GameBoard(){
         //check priority for cards to be displayed
 
         if(priority === "player"){
+
+            setOppTimeOut(playOrder.length);
+            oppPlayOrder.forEach((card, i) => {
+                //check if returned location data for opp contains the card played
+                //apiResponse.oppLeftLocation.includes(card)
+                if(true){
+                        setOppLeftLocation(oppMock1)
+                }
+    
+                if(true){
+                        setOppMiddleLocation(oppMock2)
+                }
+    
+                if(oppRightLocation.includes(card)){
+    
+                }
+            })
+
             playOrder.forEach(card => {
                 if(leftLocation.includes(card)){
                     //set location with data from server
@@ -380,7 +399,10 @@ function GameBoard(){
                 }
             })
 
-            setTimeout(() => {
+            setPlayOrder([])
+            return;
+
+            /* setTimeout(() => {
                 oppPlayOrder.forEach((card, i) => {
                     //check if returned location data for opp contains the card played
                     //apiResponse.oppLeftLocation.includes(card)
@@ -409,7 +431,7 @@ function GameBoard(){
                 setPlayOrder([]);
                 
                 return;
-            }, ((playOrder.length) * 1000));
+            }, ((playOrder.length) * 1000)); */
         }
 
         if(priority === "opponent"){
@@ -434,7 +456,7 @@ function GameBoard(){
                 if(oppRightLocation.includes(card)){
     
                 }
-                setPlayOrder([]); 
+                
             })
 
             playOrder.forEach(card => {
@@ -452,6 +474,7 @@ function GameBoard(){
                 }
             })
 
+            setPlayOrder([]); 
             return;
         }
 
@@ -504,19 +527,19 @@ function GameBoard(){
                         oppCards={oppLeftLocation} hover={hoverLeft} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana} 
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut}/>
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/>
                     <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
                         handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
                         oppCards={oppMiddleLocation} hover={hoverMid} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut}/> 
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/> 
                     <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
                         handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
                         oppCards={oppRightLocation} hover={hoverRight} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut}/>
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>

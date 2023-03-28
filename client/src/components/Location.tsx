@@ -32,7 +32,7 @@ function Location(prop: locationPropInterface){
         <section className="main-location">
             <div className="location-top">
                 {prop.oppCards && prop.oppCards.map((card, i) => {
-                    return(<PlayingCard card={card} index={i}/>);
+                    return(<PlayingCard card={card} index={i} oppTimeOutLength={prop.oppTimeOutLength}/>);
                 })}
             </div>
             <div className="location-mid" onClick={(e) => {handleSelectedLocation(e, prop.id)}}>
