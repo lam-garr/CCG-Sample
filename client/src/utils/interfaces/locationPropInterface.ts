@@ -16,5 +16,6 @@ export default interface locationPropInterface{
     myMana: number,
     selectCard: (cardData: cardInterface) => void,
     toggleDisplay: () => void,
-    handleLocationDisplay: (locationData: locationInterface) => void;
+    handleLocationDisplay: (locationData: locationInterface) => void,
+    playerTimeOutLength: number;
 }

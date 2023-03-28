@@ -27,6 +27,9 @@ function GameBoard(){
 
     const [ oppRightLocation, setOppRightLocation ] = useState<cardInterface[]>([]);
 
+    const [ playerTimeOut, setPlayerTimeOut ] = useState(0);
+
+
     const [ dragging, setDragging ] = useState<string>("");
 
     //array for cards that have already been played and cannot be moved
@@ -410,6 +413,7 @@ function GameBoard(){
         }
 
         if(priority === "opponent"){
+            setPlayerTimeOut(oppPlayOrder.length);
             oppPlayOrder.forEach((card, i) => {
                 //check if returned location data for opp contains the card played
                 //apiResponse.oppLeftLocation.includes(card)
@@ -430,28 +434,25 @@ function GameBoard(){
                 if(oppRightLocation.includes(card)){
     
                 }
+                setPlayOrder([]); 
             })
 
-            setTimeout(() => {
-                playOrder.forEach(card => {
-                    if(leftLocation.includes(card)){
-                        //set location with data from server
-                        setLeftLocation(playerMock1)
-                    }
-        
-                    if(middleLocation.includes(card)){
-        
-                    }
-        
-                    if(rightLocation.includes(card)){
-        
-                    }
-                })
+            playOrder.forEach(card => {
+                if(leftLocation.includes(card)){
+                    //set location with data from server
+                    setLeftLocation(playerMock1)
+                }
+    
+                if(middleLocation.includes(card)){
+    
+                }
+    
+                if(rightLocation.includes(card)){
+    
+                }
+            })
 
-                //clear cards played this turn
-        setPlayOrder([]);   
-
-            }, ((oppPlayOrder.length) * 1000))
+            return;
         }
 
     }
@@ -502,17 +503,20 @@ function GameBoard(){
                         handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation}
                         oppCards={oppLeftLocation} hover={hoverLeft} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana} 
-                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
+                        playerTimeOutLength={playerTimeOut}/>
                     <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
                         handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
                         oppCards={oppMiddleLocation} hover={hoverMid} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
-                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/> 
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
+                        playerTimeOutLength={playerTimeOut}/> 
                     <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
                         handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
                         oppCards={oppRightLocation} hover={hoverRight} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
-                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}/>
+                        selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
+                        playerTimeOutLength={playerTimeOut}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>
