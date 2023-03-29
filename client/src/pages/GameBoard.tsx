@@ -11,8 +11,9 @@ import "../styles/GameBoard.css";
 function GameBoard(){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                                                        {id:"2222222", name:"Trunks", description:"Burning Attack!", cost:3, power:1600, flip: false}
+    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                                                        {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:3, power:1600, flip: false},
+                                                        {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false}
                                                         ]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
@@ -21,7 +22,7 @@ function GameBoard(){
 
     const [ rightLocation, setRightLocation ] = useState<cardInterface[]>([]);
 
-    const [ oppLeftLocation, setOppLeftLocation ] = useState<cardInterface[]>([{id:"111111", name: "gohan", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]);
+    const [ oppLeftLocation, setOppLeftLocation ] = useState<cardInterface[]>([]);
 
     const [ oppMiddleLocation, setOppMiddleLocation ] = useState<cardInterface[]>([]);
 
@@ -40,7 +41,7 @@ function GameBoard(){
     const [ mana, setMana ] = useState(1);
 
     //state for handling turn number
-    const [ turn, setTurn ] = useState(1);
+    const [ turn, setTurn ] = useState(2);
 
     //state for displaying cards on select
     const [ selectedCard, setSelectedCard ] = useState<cardInterface>();
@@ -51,9 +52,15 @@ function GameBoard(){
     //state for handling the order cards are played
     const [ playOrder, setPlayOrder ] = useState<cardInterface[]>([]);
 
+    //state for handling returned play order from api
+    const [ apiPlayOrder, setApiPlayOrder ] = useState<cardInterface[]>([]);
+
     //state for handling the order opponent's cards are played
-    const [ oppPlayOrder, setOppPlayOrder ] = useState<cardInterface[]>([{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-    {id:"123456", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]);
+    const [ oppPlayOrder, setOppPlayOrder ] = useState<cardInterface[]>([
+    {id:"111111o", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+    {id:"123456o", name: "Omega Shenron", description:"HAHAHAHA!!!", cost:1, power:9000, flip: false},
+    {id:"987654o", name: "Beerus", description:"Destruction!!!", cost:1, power:9000, flip: false},
+    {id:"246810o", name: "Broly", description:"AAARRGHHHHHHH!!!", cost:1, power:9000, flip: false},]);
 
     //state for display priority
     const [ priority, setPriority ] = useState<string>("player");
@@ -359,12 +366,13 @@ function GameBoard(){
 
         //disable end turn button, then enable at end
 
-        const playerMock1 = [{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
-        const oppMock1 = [{id:"111111", name: "gohan", description:"Galick Gun!!!", cost:1, power:9000, flip: false},{id:"111111", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
-        const oppMock2 = [{id:"123456", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
-        
-        //check priority for cards to be displayed
+        //make api call to get retrned data
 
+        let playerMock1 = [{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}, {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
+        const oppMock1 = [{id:"111111o", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},{id:"987654o", name: "Beerus", description:"Destruction!!!", cost:1, power:9000, flip: false}]
+        const oppMock2 = [{id:"123456o", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: true},{id:"246810o", name: "Broly", description:"AAARRGHHHHHHH!!!", cost:1, power:9000, flip: false}]
+       
+        //check priority for cards to be displayed
         if(priority === "player"){
 
             setOppTimeOut(playOrder.length);
@@ -384,6 +392,10 @@ function GameBoard(){
                 }
             })
 
+            //set apiPlayOrder with data returned from api after call
+            setApiPlayOrder([{id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+            {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false}])
+
             playOrder.forEach(card => {
                 if(leftLocation.includes(card)){
                     //set location with data from server
@@ -399,39 +411,9 @@ function GameBoard(){
                 }
             })
 
-            setPlayOrder([])
+            setPlayOrder([]);   
             return;
 
-            /* setTimeout(() => {
-                oppPlayOrder.forEach((card, i) => {
-                    //check if returned location data for opp contains the card played
-                    //apiResponse.oppLeftLocation.includes(card)
-                    if(true){
-                        //set opp location with data from server
-                        setTimeout(() => {
-                            setOppLeftLocation(oppMock1)
-                        }, i * 1000)
-                    }
-        
-                    if(true){
-                        //set opp location with data from server
-                        setTimeout(() => {
-                            setOppMiddleLocation(oppMock2)
-                        }, i * 1000)
-                    }
-        
-                    if(oppRightLocation.includes(card)){
-        
-                    }
-                })
-
-                //finish end turn tasks
-
-                //clear cards played this turn
-                setPlayOrder([]);
-                
-                return;
-            }, ((playOrder.length) * 1000)); */
         }
 
         if(priority === "opponent"){
@@ -441,16 +423,12 @@ function GameBoard(){
                 //apiResponse.oppLeftLocation.includes(card)
                 if(true){
                     //set opp location with data from server
-                    setTimeout(() => {
                         setOppLeftLocation(oppMock1)
-                    }, i * 1000)
                 }
     
                 if(true){
                     //set opp location with data from server
-                    setTimeout(() => {
                         setOppMiddleLocation(oppMock2)
-                    }, i * 1000)
                 }
     
                 if(oppRightLocation.includes(card)){
@@ -474,10 +452,9 @@ function GameBoard(){
                 }
             })
 
-            setPlayOrder([]); 
+            //setPlayOrder([]); 
             return;
         }
-
     }
 
     //useEffect to handle mana change when turn ends
@@ -527,19 +504,22 @@ function GameBoard(){
                         oppCards={oppLeftLocation} hover={hoverLeft} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana} 
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/>
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut} playerPlayOrder={apiPlayOrder}
+                        opponentPlayOrder={oppPlayOrder}/>
                     <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
                         handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
                         oppCards={oppMiddleLocation} hover={hoverMid} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/> 
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut} playerPlayOrder={apiPlayOrder}
+                        opponentPlayOrder={oppPlayOrder}/> 
                     <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
                         handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
                         oppCards={oppRightLocation} hover={hoverRight} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
-                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut}/>
+                        playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut} playerPlayOrder={apiPlayOrder}
+                        opponentPlayOrder={oppPlayOrder}/>
                 </section>
                 <section className="bottom">
                     <div className="hand" onDrop={handleDropToHand} onDragOver={handleDragOverHand}>

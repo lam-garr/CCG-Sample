@@ -18,5 +18,7 @@ export default interface locationPropInterface{
     toggleDisplay: () => void,
     handleLocationDisplay: (locationData: locationInterface) => void,
     playerTimeOutLength: number,
-    oppTimeOutLength: number;
+    oppTimeOutLength: number,
+    playerPlayOrder: cardInterface[],
+    opponentPlayOrder: cardInterface[];
 }

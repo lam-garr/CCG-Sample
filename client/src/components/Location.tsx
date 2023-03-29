@@ -32,7 +32,12 @@ function Location(prop: locationPropInterface){
         <section className="main-location">
             <div className="location-top">
                 {prop.oppCards && prop.oppCards.map((card, i) => {
-                    return(<PlayingCard card={card} index={i} oppTimeOutLength={prop.oppTimeOutLength}/>);
+                    //if(prop.opponentPlayOrder[i] === card)
+                    //paass play order index to timeout
+                    //find index prop.opponentPlayOrder.findIndex(item => item === card)
+                    //cards will be flipped in order from teh index found
+                    const playIndex = prop.opponentPlayOrder.findIndex(item => item.id === card.id);
+                    return(<PlayingCard card={card} index={playIndex} oppTimeOutLength={prop.oppTimeOutLength}/>);
                 })}
             </div>
             <div className="location-mid" onClick={(e) => {handleSelectedLocation(e, prop.id)}}>
@@ -43,7 +48,8 @@ function Location(prop: locationPropInterface){
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {
                     if(card.flip === true){
-                        return(<PlayingCard card={card} index={i} playerTimeOutLength={prop.playerTimeOutLength}/>)
+                        const playIndex = prop.playerPlayOrder.findIndex(item => item.id === card.id);
+                        return(<PlayingCard card={card} index={playIndex} playerTimeOutLength={prop.playerTimeOutLength}/>)
                     }
                     return(<Card handleDrag={prop.handleDrag} id={card} draggingCard={prop.draggingCard}
                         dragEnd={prop.dragEndCard} inLocation={true} isDraggable={handleCardsAlreadyPlayed(card)}

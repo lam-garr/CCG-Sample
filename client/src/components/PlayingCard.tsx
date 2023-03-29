@@ -12,7 +12,14 @@ function PlayingCard(prop: playingCardInterface){
         }
 
         if(prop.oppTimeOutLength){
-            return ((prop.oppTimeOutLength + prop.index + 1) * 1000)
+            //return ((prop.oppTimeOutLength + prop.index + 1) * 1000)
+            if(prop.index === 0) return (prop.oppTimeOutLength * 1000) + 1000;
+
+            if(prop.index === 1) return (prop.oppTimeOutLength * 1000) + 2000;
+
+            if(prop.index === 2) return (prop.oppTimeOutLength * 1000) + 3000;
+
+            if(prop.index === 3) return (prop.oppTimeOutLength * 1000) + 4000;
         }
 
         if(prop.index === 0){
@@ -23,7 +30,11 @@ function PlayingCard(prop: playingCardInterface){
             return 2000;
         }
 
-        return (((prop.index)+(1))*1000);
+        if(prop.index === 2){
+            return 3000;
+        }
+
+        return 4000;
     }
 
     useEffect(() => {
@@ -34,7 +45,8 @@ function PlayingCard(prop: playingCardInterface){
 
     return(
         <div className={cardStyleClass}>
-            played
+            {prop.card.name}
+            {prop.index}
         </div>
     )
 }
