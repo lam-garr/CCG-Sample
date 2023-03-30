@@ -8,7 +8,14 @@ function PlayingCard(prop: playingCardInterface){
 
     const getTime = () => {
         if(prop.playerTimeOutLength){
-            return ((prop.playerTimeOutLength + prop.index + 1) * 1000)
+            //return ((prop.playerTimeOutLength + prop.index + 1) * 1000)
+            if(prop.index === 0) return (prop.playerTimeOutLength * 1000) + 1000;
+
+            if(prop.index === 1) return (prop.playerTimeOutLength * 1000) + 2000;
+
+            if(prop.index === 2) return (prop.playerTimeOutLength * 1000) + 3000;
+
+            if(prop.index === 3) return (prop.playerTimeOutLength * 1000) + 4000;
         }
 
         if(prop.oppTimeOutLength){

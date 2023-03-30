@@ -32,10 +32,6 @@ function Location(prop: locationPropInterface){
         <section className="main-location">
             <div className="location-top">
                 {prop.oppCards && prop.oppCards.map((card, i) => {
-                    //if(prop.opponentPlayOrder[i] === card)
-                    //paass play order index to timeout
-                    //find index prop.opponentPlayOrder.findIndex(item => item === card)
-                    //cards will be flipped in order from teh index found
                     const playIndex = prop.opponentPlayOrder.findIndex(item => item.id === card.id);
                     return(<PlayingCard card={card} index={playIndex} oppTimeOutLength={prop.oppTimeOutLength}/>);
                 })}

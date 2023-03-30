@@ -12,7 +12,7 @@ function GameBoard(){
 
     //handle data in hand and locations
     const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                                                        {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:3, power:1600, flip: false},
+                                                        {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
                                                         {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false}
                                                         ]);
 
@@ -41,7 +41,7 @@ function GameBoard(){
     const [ mana, setMana ] = useState(1);
 
     //state for handling turn number
-    const [ turn, setTurn ] = useState(2);
+    const [ turn, setTurn ] = useState(3);
 
     //state for displaying cards on select
     const [ selectedCard, setSelectedCard ] = useState<cardInterface>();
@@ -63,7 +63,7 @@ function GameBoard(){
     {id:"246810o", name: "Broly", description:"AAARRGHHHHHHH!!!", cost:1, power:9000, flip: false},]);
 
     //state for display priority
-    const [ priority, setPriority ] = useState<string>("player");
+    const [ priority, setPriority ] = useState<string>("opponent");
 
     //handle energy or mana
     const handleMana = (amount: number) => {
@@ -349,14 +349,6 @@ function GameBoard(){
         setHoverRight(false);
     }
 
-    const handleTime = (time: number) => {
-        if(time === 0) return 1000;
-
-        if(time === 1) return 2000;
-
-        return (time + 1) * 1000;
-    }
-
     //end turn function
     const endMyTurn = () => {
         setTurn(prev => prev + 1);
@@ -369,9 +361,15 @@ function GameBoard(){
         //make api call to get retrned data
 
         let playerMock1 = [{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: true}, {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: true}]
+        let playerMock2 = [{id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: true}]
         const oppMock1 = [{id:"111111o", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},{id:"987654o", name: "Beerus", description:"Destruction!!!", cost:1, power:9000, flip: false}]
         const oppMock2 = [{id:"123456o", name: "Omega Shenron", description:"Galick Gun!!!", cost:1, power:9000, flip: true},{id:"246810o", name: "Broly", description:"AAARRGHHHHHHH!!!", cost:1, power:9000, flip: false}]
        
+        //set apiPlayOrder with data returned from api after call
+        setApiPlayOrder([{id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+        {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+        {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false}])
+
         //check priority for cards to be displayed
         if(priority === "player"){
 
@@ -392,10 +390,6 @@ function GameBoard(){
                 }
             })
 
-            //set apiPlayOrder with data returned from api after call
-            setApiPlayOrder([{id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-            {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false}])
-
             playOrder.forEach(card => {
                 if(leftLocation.includes(card)){
                     //set location with data from server
@@ -403,7 +397,7 @@ function GameBoard(){
                 }
     
                 if(middleLocation.includes(card)){
-    
+                    setMiddleLocation(playerMock2)
                 }
     
                 if(rightLocation.includes(card)){
@@ -444,7 +438,7 @@ function GameBoard(){
                 }
     
                 if(middleLocation.includes(card)){
-    
+                    setMiddleLocation(playerMock2)
                 }
     
                 if(rightLocation.includes(card)){
@@ -452,7 +446,7 @@ function GameBoard(){
                 }
             })
 
-            //setPlayOrder([]); 
+            setPlayOrder([]); 
             return;
         }
     }
