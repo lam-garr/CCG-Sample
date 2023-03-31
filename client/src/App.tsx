@@ -7,11 +7,20 @@ import Collection from "./pages/Collection";
 import GameBoard from "./pages/GameBoard";
 import Protected from "./pages/Protected";
 import Authorized from "./pages/Authorized";
+import Overlay from "./components/Overlay";
 import "./styles/App.css";
 
 function App() {
+
+  const [ overlayIsOpen, setOverlayIsOpen ] = useState(false);
+
+  const changeOverlay = () => {
+    setOverlayIsOpen(!overlayIsOpen);
+  }
+
   return (
     <BrowserRouter>
+      <Overlay isOpen={overlayIsOpen}/>
       <Routes>
         <Route element={<Protected/>}>
           <Route path="/collection" element={<Collection/>}></Route>
