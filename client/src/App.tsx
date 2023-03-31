@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import HomePage from "./pages/Home";
+import Collection from "./pages/Collection";
 import GameBoard from "./pages/GameBoard";
 import Protected from "./pages/Protected";
 import Authorized from "./pages/Authorized";
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Protected/>}>
+          <Route path="/collection" element={<Collection/>}></Route>
           <Route path="/play" element={<GameBoard/>}></Route>
         </Route>
         <Route element={<Authorized/>}>
