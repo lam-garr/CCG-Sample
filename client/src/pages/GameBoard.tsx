@@ -6,9 +6,10 @@ import GameInfo from "../components/GameInfo";
 import cardInterface from "../utils/interfaces/cardInterface";
 import locationInterface from "../utils/interfaces/locationInterface";
 import findObjectWithId from "../utils/functions/findObjectWithId";
+import gameBoardPropInterface from "../utils/interfaces/gameBoardPropInterface";
 import "../styles/GameBoard.css";
 
-function GameBoard(){
+function GameBoard(prop: gameBoardPropInterface){
 
     //handle data in hand and locations
     const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
@@ -526,7 +527,9 @@ function GameBoard(){
                 </section>
             </section>
             <section className="right-board">
-               <GameInfo userHand={hand.length} userDeck={0} oppHand={0} oppDeck={0} mana={mana} turn={turn} endTurnFn={endMyTurn}/>
+               <GameInfo userHand={hand.length} userDeck={0} oppHand={0}
+                oppDeck={0} mana={mana} turn={turn}
+                endTurnFn={endMyTurn} handleOverlayChange={prop.handleOverlayChange} overlayIsOpen={prop.overlayIsOpen}/>
             </section>   
         </main>
     )

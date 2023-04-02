@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Overlay from "./Overlay";
+import RetreatModal from "./RetreatModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScroll } from "@fortawesome/free-solid-svg-icons";
 import gameInfoPropInterface from "../utils/interfaces/gameInfoPropInterface";
@@ -8,12 +10,30 @@ function GameInfo(prop: gameInfoPropInterface){
 
     const [ gameInfoOpen, setGameInfoOpen ] = useState(false);
 
+    const [ retreatModalOpen, setRetreatModalOpen ] = useState(false);
+
     const gameInfoOnClick = () => {
         setGameInfoOpen(!gameInfoOpen);
     }
 
+    const openRetreatModal = () => {
+        setRetreatModalOpen(true);
+        prop.handleOverlayChange();
+    }
+
+    const closeRetreatModal = () => {
+        setRetreatModalOpen(false);
+        prop.handleOverlayChange();
+    }
+
+    const handlePlayerRetreat = () => {
+
+    }
+
     return(
         <section className="board-content">
+            <RetreatModal modalIsOpen={retreatModalOpen} handleCloseModal={closeRetreatModal} handleRetreat={handlePlayerRetreat}/>
+            <Overlay isOpen={prop.overlayIsOpen}/>
                 {gameInfoOpen ?
                     (<div className="board-game-info">
                         <div className="extra-space-top"></div>
@@ -43,12 +63,12 @@ function GameInfo(prop: gameInfoPropInterface){
                     <button className="end-turn-btn" onClick={prop.endTurnFn}>{`end turn ${prop.turn}`}</button>
                     {gameInfoOpen ? 
                         (<div className="retreat-btn">
-                            <button className="bottom-right-buddy">retreat</button>
+                            <button className="bottom-right-buddy" onClick={openRetreatModal}>retreat</button>
                         </div>) : 
                         (<div className="no-retreat-btn"></div>)
                     }
                 </div>
-            </section> 
+        </section> 
     )
 }
 

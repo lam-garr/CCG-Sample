@@ -5,5 +5,7 @@ export default interface gameInfoPropInterface{
     oppDeck: number,
     mana: number,
     turn: number,
-    endTurnFn: () => void;
+    endTurnFn: () => void,
+    handleOverlayChange: () => void,
+    overlayIsOpen: boolean;
 }

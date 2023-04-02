@@ -1,0 +1,97 @@
+.retreat-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid navy;
+    border-radius: 10px;
+    background-color: white;
+    width: 450px;
+    height: 200px;
+    margin: 0;
+    z-index: 99;
+}
+
+.retreat-modal.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.retreat-modal-header{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.retreat-modal-title{
+    font-size: large;
+    font-weight: bold;
+}
+
+.retreat-close-btn{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+}
+
+.retreat-modal-body{
+    height: 125px;
+    padding: 10px 10px;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.retreat-modal-text{
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.retreat-modal-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+}
+
+.retreat-yes-btn{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 80px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(235, 11, 11);
+}
+
+.retreat-yes-btn:hover{
+    background-color: rgb(192, 12, 12);
+}
+
+.retreat-no-btn{
+    font-size: 15px;
+    padding: 5px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 80px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(219, 59, 219);
+}
+
+.retreat-no-btn:hover{
+    background-color: rgb(119, 38, 119);
+}
