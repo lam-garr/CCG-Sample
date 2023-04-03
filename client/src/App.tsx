@@ -23,7 +23,7 @@ function App() {
       <Overlay isOpen={overlayIsOpen}/>
       <Routes>
         <Route element={<Protected/>}>
-          <Route path="/collection" element={<Collection/>}></Route>
+          <Route path="/collection" element={<Collection handleOverlayChange={changeOverlay} overlayIsOpen={overlayIsOpen}/>}></Route>
           <Route path="/play" element={<GameBoard handleOverlayChange={changeOverlay} overlayIsOpen={overlayIsOpen}/>}></Route>
         </Route>
         <Route element={<Authorized/>}>
