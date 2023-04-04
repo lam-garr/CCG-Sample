@@ -26,7 +26,7 @@ function CollectionHelpModal(prop: colleHelpModalInterface){
                 <button className="collection-help-close-btn" onClick={prop.handleCloseModal}>x</button>
             </div>
             <div className="collection-help-modal-body">
-
+                
             </div>
         </aside>
     )

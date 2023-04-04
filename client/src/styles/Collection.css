@@ -5,6 +5,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+    position: relative;
 }
 
 .collection-section-one{
@@ -41,4 +42,12 @@
     position: absolute;
     right: -21px;
     bottom: 0;
+}
+
+.collection-back-btn{
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    left: 0;
+    top: 0;
 }

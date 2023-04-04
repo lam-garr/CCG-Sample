@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Overlay from "./Overlay";
 import RetreatModal from "./RetreatModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faScroll } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import gameInfoPropInterface from "../utils/interfaces/gameInfoPropInterface";
 import "../styles/GameInfo.css";
 
@@ -51,7 +51,7 @@ function GameInfo(prop: gameInfoPropInterface){
                         <div className="extra-space-bottom"></div>
                     </div>) : 
                     <div className="game-info-close-top">
-                        <button className="menu-btn" onClick={gameInfoOnClick}><FontAwesomeIcon className="menu-icon" icon={faScroll} size="lg"/></button>
+                        <button className="menu-btn" onClick={gameInfoOnClick}><FontAwesomeIcon className="menu-icon" icon={faCaretDown} size="lg"/></button>
                     </div>
                 }
                 <span>{`mana: ${prop.mana}`}</span>
