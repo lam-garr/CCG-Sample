@@ -1,0 +1,51 @@
+.deck-collection{
+    width: 700px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.deck-collection-decks{
+    width: 625px;
+    height: inherit;
+    background-color: blue;
+}
+
+.deck-collection-left-btn{
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: red;
+}
+
+.deck-collection-right-btn{
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    background-color: red;
+}
+
+.deck-builder{
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    height: 100%;
+    position: relative;
+}
+
+.deck-builder-close-btn{
+    width: 45px;
+    height: 15px;
+    cursor: pointer;
+    border: none;
+    margin: 2px;
+    background: none;
+    position: absolute;
+    right: -45px;
+    top: 0;
+}
+
+.deck-builder-close-btn:hover{
+    color: navy;
+}

@@ -14,10 +14,14 @@
     justify-content: center;
     align-items: center;
     height: 100px;
-    width: 800px;
+    width: 700px;
     background-color: pink;
     position: relative;
     border: 1px solid black;
+}
+
+.collection-section-one.builder{
+    width:600px;
 }
 
 .collection-section-two{
