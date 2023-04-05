@@ -1,0 +1,27 @@
+.cards-collection-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 1000px;
+}
+
+.cards-collection-header{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 1000px;
+    min-width: 1000px;
+    background-color: yellow;
+}
+
+.cards-collection-cards{
+    display: flex;
+    flex-direction: column;
+    height: 470px;
+    width: 1000px;
+    min-width: 1000px;
+    background-color: plum;
+}
+

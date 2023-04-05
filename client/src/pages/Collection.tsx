@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CollectionHelpModal from "../components/CollectionHelpModal";
 import Overlay from "../components/Overlay";
 import Decks from "../components/Decks";
+import CardsCollections from "../components/CardsCollection";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import collectionPropInterface from "../utils/interfaces/collectionPropInterface";
@@ -48,7 +49,7 @@ function Collection(prop: collectionPropInterface){
                 <button className="collection-help-btn" onClick={openHelpModal}>?</button>
             </section>
             <section className="collection-section-two">
-                <div>Cards</div>
+                <CardsCollections/>
             </section>
         </main>
     )
