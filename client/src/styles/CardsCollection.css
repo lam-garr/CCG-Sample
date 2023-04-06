@@ -17,11 +17,20 @@
 }
 
 .cards-collection-cards{
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: -10px;
     height: 470px;
     width: 1000px;
     min-width: 1000px;
     background-color: plum;
 }
 
+.collection-card{
+    width: 130px;
+    height: 180px;
+    background-color: green;
+    border: 1px solid black;
+}
