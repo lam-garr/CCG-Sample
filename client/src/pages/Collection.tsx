@@ -23,7 +23,11 @@ function Collection(prop: collectionPropInterface){
 
     const [ cardInfoModalOpen, setCardInfoModalOpen ] = useState(false);
 
-    const [ selectedCardInfo, setSelectedCardInfo ] = useState<cardInterface>()
+    const [ selectedCardInfo, setSelectedCardInfo ] = useState<cardInterface>();
+
+    const [ deckInView, setDeckInView ] = useState<cardInterface[]>([]);
+
+    const [ infoFromDeck, setInfoFromDeck ] = useState(false);
 
     const navigate = useNavigate();
 
@@ -60,6 +64,16 @@ function Collection(prop: collectionPropInterface){
         prop.handleOverlayChange();
     }
 
+    const handleDeckInView = (deck: cardInterface[]) => {
+        setDeckInView(deck);
+    }
+
+    const handleCardInfoFromDeck = (card: cardInterface) => {
+        setSelectedCardInfo(card);
+        setCardInfoModalOpen(true);
+        prop.handleOverlayChange();
+    }
+
     //useEffect to call api
     useEffect(() => {
         //set returned data
@@ -72,6 +86,27 @@ function Collection(prop: collectionPropInterface){
             {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
             {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false},
         ])
+
+        setUserDecks([
+            {title: "deck 1", deck: [
+                {id:"12121212p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"21212121p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"43434343p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"53535355p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"65656556p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"91919191p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"00010010p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
+            ]},
+            {title: "deck 2", deck: [
+                {id:"65785679p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"92758464p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"91807584p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"09674937p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"11001001p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"90990909p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"02022022p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
+            ]}
+        ])
     }, [])
 
     return(
@@ -81,7 +116,9 @@ function Collection(prop: collectionPropInterface){
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="collection-back-btn" onClick={navigateToMenu}>back</button>
             <section className={`collection-section-one ${deckBuilderOpen?"builder":""}`}>
-                <Decks deckBuilderIsOpen={deckBuilderOpen} handleOpenDeckBuilder={openDeckBuilder} handleCloseDeckBuilder={closeDeckBuilder}/>
+                <Decks deckBuilderIsOpen={deckBuilderOpen} handleOpenDeckBuilder={openDeckBuilder} handleCloseDeckBuilder={closeDeckBuilder}
+                    handleCurrentDeck={handleDeckInView} currentDeck={deckInView} handleCardInfo={handleCardInfoFromDeck}
+                    userDecks={userDecks}/>
                 <button className="collection-help-btn" onClick={openHelpModal}>?</button>
             </section>
             <section className="collection-section-two">

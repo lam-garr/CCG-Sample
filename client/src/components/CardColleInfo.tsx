@@ -26,7 +26,18 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
         if(prop.card) return `cost: ${prop.card.cost}`;
     }
 
-    return(
+    return prop.deckBuilder && prop.infoOpen ? 
+        <aside className={`card-colle-info-build ${prop.infoOpen?"active":""}`} ref={modalRef}>
+            <div>
+                {/* <img src={getImg(prop.id)} alt="" className="card-img"/> */}
+                {prop.card && prop.card.name}
+                <span className="card-colle-power-build">{returnCardPower()}</span>
+                <span className="card-colle-cost-build">{returnCardCost()}</span>
+                <button>Add to Deck</button>
+                {prop.cardInDeck && <button>Remove from Deck</button>}
+            </div>
+        </aside>
+        :
         <aside className={`card-colle-info ${prop.infoOpen?"active":""}`} ref={modalRef}>
             <div>
                 {/* <img src={getImg(prop.id)} alt="" className="card-img"/> */}
@@ -35,7 +46,6 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
                 <span className="card-colle-cost">{returnCardCost()}</span>
             </div>
         </aside>
-    )
 }
 
 export default CardsColleInfo;
