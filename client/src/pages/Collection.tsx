@@ -5,6 +5,7 @@ import Overlay from "../components/Overlay";
 import Decks from "../components/Decks";
 import CardsCollection from "../components/CardsCollection";
 import CardColleInfo from "../components/CardColleInfo";
+import DeckCardInfo from "../components/DeckCardInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import collectionPropInterface from "../utils/interfaces/collectionPropInterface";
@@ -23,7 +24,11 @@ function Collection(prop: collectionPropInterface){
 
     const [ cardInfoModalOpen, setCardInfoModalOpen ] = useState(false);
 
+    const [ deckCardInfoModalOpen, setDeckCardInfoModalOpen ] = useState(false);
+
     const [ selectedCardInfo, setSelectedCardInfo ] = useState<cardInterface>();
+
+    const [ selectedDeckCardInfo, setSelectedDeckCardInfo ] = useState<cardInterface>();
 
     const [ deckInView, setDeckInView ] = useState<cardInterface[]>([]);
 
@@ -69,8 +74,13 @@ function Collection(prop: collectionPropInterface){
     }
 
     const handleCardInfoFromDeck = (card: cardInterface) => {
-        setSelectedCardInfo(card);
-        setCardInfoModalOpen(true);
+        setSelectedDeckCardInfo(card);
+        setDeckCardInfoModalOpen(true);
+        prop.handleOverlayChange();
+    }
+
+    const closeDeckCardInfo = () => {
+        setDeckCardInfoModalOpen(false);
         prop.handleOverlayChange();
     }
 
@@ -112,6 +122,7 @@ function Collection(prop: collectionPropInterface){
     return(
         <main className="collection-content">
             <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen} infoOpen={cardInfoModalOpen}/>
+            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="collection-back-btn" onClick={navigateToMenu}>back</button>
