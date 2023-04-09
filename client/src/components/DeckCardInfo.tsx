@@ -33,6 +33,7 @@ function DeckCardInfo(prop: deckCardInfoPropInterface){
                 {prop.card && prop.card.name}
                 <span className="deck-card-power">{returnCardPower()}</span>
                 <span className="deck-card-cost">{returnCardCost()}</span>
+                <button className="remove-card-btn">Remove from Deck</button>
             </div>
         </aside>
     )

@@ -65,3 +65,21 @@
     border-radius: 10px;
     color: red;
 }
+
+.add-card-btn{
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    background-color: blue;
+}
+
+.dupe-error{
+    position: absolute;
+    top: 60%;
+    right: 50px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    color: red;
+}

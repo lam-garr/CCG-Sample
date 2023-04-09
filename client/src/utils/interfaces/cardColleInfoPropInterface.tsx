@@ -6,5 +6,6 @@ export default interface cardColleInfoPropInterface{
     deckBuilder: boolean,
     cardInDeck?: boolean,
     fromDeck?: boolean,
-    infoOpen: boolean;
+    infoOpen: boolean,
+    openDeck: cardInterface[];
 }

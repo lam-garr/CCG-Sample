@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import cardColleInfoPropInterface from "../utils/interfaces/cardColleInfoPropInterface";
 import "../styles/CardColleInfo.css";
 
@@ -26,6 +26,21 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
         if(prop.card) return `cost: ${prop.card.cost}`;
     }
 
+    const [ dupeError, setDupeError ] = useState(false);
+
+    const handleAddBtnClick = () => {
+        if(prop.card && prop.openDeck){
+            prop.openDeck.forEach(card => {
+                if(prop.card && card.id === prop.card.id){
+                    setDupeError(true);
+                    setTimeout(() => {
+                        setDupeError(false);
+                    }, 1500);
+                }
+            })
+        }
+    }
+
     return prop.deckBuilder && prop.infoOpen ? 
         <aside className={`card-colle-info-build ${prop.infoOpen?"active":""}`} ref={modalRef}>
             <div>
@@ -33,7 +48,8 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
                 {prop.card && prop.card.name}
                 <span className="card-colle-power-build">{returnCardPower()}</span>
                 <span className="card-colle-cost-build">{returnCardCost()}</span>
-                <button>Add to Deck</button>
+                <button className="add-card-btn" onClick={handleAddBtnClick}>Add to Deck</button>
+                {dupeError && <span className="dupe-error">Deck limit reached.</span>}
                 {prop.cardInDeck && <button>Remove from Deck</button>}
             </div>
         </aside>

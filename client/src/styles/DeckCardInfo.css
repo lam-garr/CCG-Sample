@@ -31,3 +31,11 @@
     border-radius: 10px;
     color: red;
 }
+.remove-card-btn{
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    background-color: red;
+}
