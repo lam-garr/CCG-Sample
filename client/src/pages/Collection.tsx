@@ -84,6 +84,10 @@ function Collection(prop: collectionPropInterface){
         prop.handleOverlayChange();
     }
 
+    const handleAddCardToDeck = (card: cardInterface) => {
+        setDeckInView(prev => [...prev, card]);
+    }
+
     //useEffect to call api
     useEffect(() => {
         //set returned data
@@ -116,6 +120,14 @@ function Collection(prop: collectionPropInterface){
                 {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
+            ]},
+            {title: "deck 3", deck: [
+                {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false}
             ]}
         ])
     }, [])
@@ -123,7 +135,7 @@ function Collection(prop: collectionPropInterface){
     return(
         <main className="collection-content">
             <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
-             infoOpen={cardInfoModalOpen} openDeck={deckInView}/>
+             infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView}/>
             <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>

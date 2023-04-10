@@ -7,5 +7,6 @@ export default interface cardColleInfoPropInterface{
     cardInDeck?: boolean,
     fromDeck?: boolean,
     infoOpen: boolean,
+    addCard: (card: cardInterface) => void,
     openDeck: cardInterface[];
 }

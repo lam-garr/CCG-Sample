@@ -26,19 +26,39 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
         if(prop.card) return `cost: ${prop.card.cost}`;
     }
 
-    const [ dupeError, setDupeError ] = useState(false);
+    const [ deckError, setDeckError ] = useState(false);
+
+    const [ errMsg, setErrMsg ] = useState("");
 
     const handleAddBtnClick = () => {
-        if(prop.card && prop.openDeck){
-            prop.openDeck.forEach(card => {
-                if(prop.card && card.id === prop.card.id){
-                    setDupeError(true);
-                    setTimeout(() => {
-                        setDupeError(false);
-                    }, 1500);
-                }
-            })
+        
+        let needToReturn: boolean = false;
+
+        prop.openDeck.forEach(card => {
+            if(prop.card && card.id === prop.card.id){
+                setErrMsg("Deck limit reached.")
+                setDeckError(true);
+                needToReturn = true;
+                setTimeout(() => {
+                    setDeckError(false);
+                }, 1500);
+                return;
+            }
+        })
+
+        if(needToReturn) return;
+
+        if(prop.openDeck.length === 7){
+            setErrMsg("Deck is full.")
+            setDeckError(true);
+            needToReturn = true;
+            setTimeout(() => {
+                setDeckError(false);
+            }, 1500)
+            return;
         }
+
+        if(prop.card && !needToReturn) prop.addCard(prop.card);
     }
 
     return prop.deckBuilder && prop.infoOpen ? 
@@ -49,7 +69,7 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
                 <span className="card-colle-power-build">{returnCardPower()}</span>
                 <span className="card-colle-cost-build">{returnCardCost()}</span>
                 <button className="add-card-btn" onClick={handleAddBtnClick}>Add to Deck</button>
-                {dupeError && <span className="dupe-error">Deck limit reached.</span>}
+                {deckError && <span className="dupe-error">{errMsg}</span>}
                 {prop.cardInDeck && <button>Remove from Deck</button>}
             </div>
         </aside>
