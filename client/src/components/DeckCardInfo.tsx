@@ -26,6 +26,11 @@ function DeckCardInfo(prop: deckCardInfoPropInterface){
         if(prop.card) return `cost: ${prop.card.cost}`;
     }
 
+    const handleRemoveBtnClick = () => {
+        prop.handleClose();
+        if(prop.card) prop.removeCard(prop.card);
+    }
+
     return(
         <aside className={`deck-card-info ${prop.infoOpen?"active":""}`} ref={modalRef}>
             <div>
@@ -33,7 +38,7 @@ function DeckCardInfo(prop: deckCardInfoPropInterface){
                 {prop.card && prop.card.name}
                 <span className="deck-card-power">{returnCardPower()}</span>
                 <span className="deck-card-cost">{returnCardCost()}</span>
-                <button className="remove-card-btn">Remove from Deck</button>
+                <button className="remove-card-btn" onClick={handleRemoveBtnClick}>Remove from Deck</button>
             </div>
         </aside>
     )

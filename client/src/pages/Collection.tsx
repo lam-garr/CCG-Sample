@@ -88,6 +88,10 @@ function Collection(prop: collectionPropInterface){
         setDeckInView(prev => [...prev, card]);
     }
 
+    const handleRemoveCardFromDeck = (card: cardInterface) => {
+        setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
+    }
+
     //useEffect to call api
     useEffect(() => {
         //set returned data
@@ -136,7 +140,8 @@ function Collection(prop: collectionPropInterface){
         <main className="collection-content">
             <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
              infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView}/>
-            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}/>
+            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
+                removeCard={handleRemoveCardFromDeck}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="collection-back-btn" onClick={navigateToMenu}>back</button>

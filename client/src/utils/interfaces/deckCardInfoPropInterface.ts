@@ -6,5 +6,6 @@ export default interface deckCardInfoPropInterface{
     deckBuilder?: boolean,
     cardInDeck?: boolean,
     fromDeck?: boolean,
+    removeCard: (card: cardInterface) => void,
     infoOpen: boolean;
 }
