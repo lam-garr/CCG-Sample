@@ -7,5 +7,6 @@ export default interface deckPropInterface{
     handleCurrentDeck: (deck: cardInterface[]) => void,
     currentDeck: cardInterface[],
     handleCardInfo: (card: cardInterface) => void,
+    handleNewDeck: () => void,
     userDecks: any[];
 }

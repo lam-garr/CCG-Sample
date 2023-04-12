@@ -18,7 +18,7 @@ function Decks(prop: deckPropInterface){
     }
 
     const handleNewDeck = () => {
-        prop.handleOpenDeckBuilder();
+        prop.handleNewDeck();
     }
 
     return(
@@ -38,7 +38,7 @@ function Decks(prop: deckPropInterface){
         <section className="deck-collection">
             <button className="deck-collection-left-btn">left</button>
             <div className="deck-collection-decks">
-                {/* <button onClick={handleNewDeck}>New Deck</button> */}
+                <button onClick={handleNewDeck}>New Deck</button>
                 {prop.userDecks && prop.userDecks.map((deck, i) => {
                 return(
                     <div key={i} onClick={(e) => {handleCurrentDeck(e, deck.deck)}}>

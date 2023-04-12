@@ -59,6 +59,7 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
         }
 
         if(prop.card && !needToReturn) prop.addCard(prop.card);
+        prop.handleClose();
     }
 
     return prop.deckBuilder && prop.infoOpen ? 

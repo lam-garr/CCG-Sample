@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import collectionPropInterface from "../utils/interfaces/collectionPropInterface";
 import cardInterface from "../utils/interfaces/cardInterface";
+import userDeckInterface from "../utils/interfaces/userDeckInterface";
 import "../styles/Collection.css";
 
 function Collection(prop: collectionPropInterface){
@@ -18,7 +19,7 @@ function Collection(prop: collectionPropInterface){
 
     const [ deckBuilderOpen, setDeckBuilderOpen ] = useState(false);
 
-    const [ userDecks, setUserDecks ] = useState<any[]>([]);
+    const [ userDecks, setUserDecks ] = useState<userDeckInterface[]>([]);
 
     const [ userCards, setUserCards ] = useState<any[]>([]);
 
@@ -92,6 +93,14 @@ function Collection(prop: collectionPropInterface){
         setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
     }
 
+    const handleCreateNewDeck = () => {
+        const newDeck = {id: `${Math.floor(Math.random() * 1000)}`, title: `untitled`, deck:[{id:"666999p", name: "Bulma", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]}
+        setUserDecks(prev => [...prev, newDeck])
+        //setDeckInView(userDecks[userDecks.length - 1].deck);
+        setDeckInView(newDeck.deck);
+        setDeckBuilderOpen(true);
+    }
+
     //useEffect to call api
     useEffect(() => {
         //set returned data
@@ -107,7 +116,7 @@ function Collection(prop: collectionPropInterface){
         ])
 
         setUserDecks([
-            {title: "deck 1", deck: [
+            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 1", deck: [
                 {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
                 {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
@@ -116,7 +125,7 @@ function Collection(prop: collectionPropInterface){
                 {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
             ]},
-            {title: "deck 2", deck: [
+            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 2", deck: [
                 {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
                 {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
@@ -125,7 +134,7 @@ function Collection(prop: collectionPropInterface){
                 {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
             ]},
-            {title: "deck 3", deck: [
+            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 3", deck: [
                 {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
                 {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
                 {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
@@ -148,7 +157,7 @@ function Collection(prop: collectionPropInterface){
             <section className={`collection-section-one ${deckBuilderOpen?"builder":""}`}>
                 <Decks deckBuilderIsOpen={deckBuilderOpen} handleOpenDeckBuilder={openDeckBuilder} handleCloseDeckBuilder={closeDeckBuilder}
                     handleCurrentDeck={handleDeckInView} currentDeck={deckInView} handleCardInfo={handleCardInfoFromDeck}
-                    userDecks={userDecks}/>
+                    handleNewDeck={handleCreateNewDeck} userDecks={userDecks}/>
                 <button className="collection-help-btn" onClick={openHelpModal}>?</button>
             </section>
             <section className="collection-section-two">
