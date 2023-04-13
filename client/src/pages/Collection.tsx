@@ -33,6 +33,8 @@ function Collection(prop: collectionPropInterface){
 
     const [ deckInView, setDeckInView ] = useState<cardInterface[]>([]);
 
+    const [ currentDeckId, setCurrentDeckId ] = useState("");
+
     const [ infoFromDeck, setInfoFromDeck ] = useState(false);
 
     const navigate = useNavigate();
@@ -70,7 +72,9 @@ function Collection(prop: collectionPropInterface){
         prop.handleOverlayChange();
     }
 
-    const handleDeckInView = (deck: cardInterface[]) => {
+    const handleDeckInView = (deck: cardInterface[], id: string) => {
+        //const deck = userDecks.find(deck => deck.id === id)
+
         setDeckInView(deck);
     }
 
@@ -95,10 +99,15 @@ function Collection(prop: collectionPropInterface){
 
     const handleCreateNewDeck = () => {
         const newDeck = {id: `${Math.floor(Math.random() * 1000)}`, title: `untitled`, deck:[{id:"666999p", name: "Bulma", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]}
+        setDeckInView(newDeck.deck);
         setUserDecks(prev => [...prev, newDeck])
         //setDeckInView(userDecks[userDecks.length - 1].deck);
-        setDeckInView(newDeck.deck);
         setDeckBuilderOpen(true);
+    }
+
+    const handleDeleteDeck = () => {
+        setUserDecks(prev => {return prev.filter(item => item.deck !== deckInView)})
+        setDeckBuilderOpen(false);
     }
 
     //useEffect to call api
@@ -157,7 +166,7 @@ function Collection(prop: collectionPropInterface){
             <section className={`collection-section-one ${deckBuilderOpen?"builder":""}`}>
                 <Decks deckBuilderIsOpen={deckBuilderOpen} handleOpenDeckBuilder={openDeckBuilder} handleCloseDeckBuilder={closeDeckBuilder}
                     handleCurrentDeck={handleDeckInView} currentDeck={deckInView} handleCardInfo={handleCardInfoFromDeck}
-                    handleNewDeck={handleCreateNewDeck} userDecks={userDecks}/>
+                    handleNewDeck={handleCreateNewDeck} handleDeleteDeck={handleDeleteDeck} userDecks={userDecks}/>
                 <button className="collection-help-btn" onClick={openHelpModal}>?</button>
             </section>
             <section className="collection-section-two">

@@ -11,14 +11,18 @@ function Decks(prop: deckPropInterface){
         prop.handleCardInfo(card);
     }
 
-    const handleCurrentDeck = (e:any, deck: cardInterface[]) => {
+    const handleCurrentDeck = (e:any, deck: cardInterface[], id: string) => {
         //setCurrentDeck(deck);
-        prop.handleCurrentDeck(deck);
+        prop.handleCurrentDeck(deck, id);
         prop.handleOpenDeckBuilder();
     }
 
     const handleNewDeck = () => {
         prop.handleNewDeck();
+    }
+
+    const handleDeleteDeck = () => {
+        prop.handleDeleteDeck()
     }
 
     return(
@@ -33,6 +37,7 @@ function Decks(prop: deckPropInterface){
                 })}
                 {!prop.currentDeck && <span>deck is empty</span>}
             <button className="deck-builder-close-btn" onClick={prop.handleCloseDeckBuilder}>finish</button>
+            <button className="deck-builder-delete-btn" onClick={handleDeleteDeck}>Delete deck</button>
         </section> 
         : 
         <section className="deck-collection">
@@ -41,7 +46,7 @@ function Decks(prop: deckPropInterface){
                 <button onClick={handleNewDeck}>New Deck</button>
                 {prop.userDecks && prop.userDecks.map((deck, i) => {
                 return(
-                    <div key={i} onClick={(e) => {handleCurrentDeck(e, deck.deck)}}>
+                    <div key={i} onClick={(e) => {handleCurrentDeck(e, deck.deck, deck.id)}}>
                         {deck.title}
                     </div>
                 )
