@@ -31,7 +31,7 @@ function Collection(prop: collectionPropInterface){
 
     const [ selectedDeckCardInfo, setSelectedDeckCardInfo ] = useState<cardInterface>();
 
-    const [ deckInView, setDeckInView ] = useState<cardInterface[]>([]);
+    const [ deckInView, setDeckInView ] = useState<userDeckInterface>();
 
     const [ currentDeckId, setCurrentDeckId ] = useState("");
 
@@ -72,9 +72,7 @@ function Collection(prop: collectionPropInterface){
         prop.handleOverlayChange();
     }
 
-    const handleDeckInView = (deck: cardInterface[], id: string) => {
-        //const deck = userDecks.find(deck => deck.id === id)
-
+    const handleDeckInView = (deck: userDeckInterface) => {
         setDeckInView(deck);
     }
 
@@ -90,23 +88,27 @@ function Collection(prop: collectionPropInterface){
     }
 
     const handleAddCardToDeck = (card: cardInterface) => {
-        setDeckInView(prev => [...prev, card]);
+        //make api call with card to add, then set with returned deck
+
+        //setDeckInView(prev => [...prev, card]);
     }
 
     const handleRemoveCardFromDeck = (card: cardInterface) => {
-        setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
+        //make apu call with card to remove, then set with returned deck
+        //setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
     }
 
     const handleCreateNewDeck = () => {
+        //create new deck, then set userdecks with returned decks
         const newDeck = {id: `${Math.floor(Math.random() * 1000)}`, title: `untitled`, deck:[{id:"666999p", name: "Bulma", description:"Galick Gun!!!", cost:1, power:9000, flip: false}]}
-        setDeckInView(newDeck.deck);
-        setUserDecks(prev => [...prev, newDeck])
+        //setDeckInView(newDeck.deck);
+        //setUserDecks(prev => [...prev, newDeck])
         //setDeckInView(userDecks[userDecks.length - 1].deck);
         setDeckBuilderOpen(true);
     }
 
-    const handleDeleteDeck = () => {
-        setUserDecks(prev => {return prev.filter(item => item.deck !== deckInView)})
+    const handleDeleteDeck = (deck: userDeckInterface) => {
+        setUserDecks(prev => {return prev.filter(item => item.id !== deck.id)})
         setDeckBuilderOpen(false);
     }
 
@@ -157,7 +159,7 @@ function Collection(prop: collectionPropInterface){
     return(
         <main className="collection-content">
             <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
-             infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView}/>
+             infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/>
             <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
                 removeCard={handleRemoveCardFromDeck}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>

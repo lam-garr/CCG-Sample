@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import cardInterface from "../utils/interfaces/cardInterface";
 import deckPropInterface from "../utils/interfaces/deckPropInterface";
+import userDeckInterface from "../utils/interfaces/userDeckInterface";
 import "../styles/Decks.css";
 
 function Decks(prop: deckPropInterface){
@@ -11,9 +12,9 @@ function Decks(prop: deckPropInterface){
         prop.handleCardInfo(card);
     }
 
-    const handleCurrentDeck = (e:any, deck: cardInterface[], id: string) => {
+    const handleCurrentDeck = (e:any, deck: userDeckInterface) => {
         //setCurrentDeck(deck);
-        prop.handleCurrentDeck(deck, id);
+        prop.handleCurrentDeck(deck);
         prop.handleOpenDeckBuilder();
     }
 
@@ -22,13 +23,13 @@ function Decks(prop: deckPropInterface){
     }
 
     const handleDeleteDeck = () => {
-        prop.handleDeleteDeck()
+        if(prop.currentDeck) prop.handleDeleteDeck(prop.currentDeck)
     }
 
     return(
         prop.deckBuilderIsOpen ? 
         <section className="deck-builder">
-                {prop.currentDeck && prop.currentDeck.map((card, i) => {
+                {prop.currentDeck && prop.currentDeck.deck.map((card, i) => {
                     return(
                         <div key={i} onClick={(e) => {handleCardInfo(e, card)}}>
                             {card.name}
@@ -46,7 +47,7 @@ function Decks(prop: deckPropInterface){
                 <button onClick={handleNewDeck}>New Deck</button>
                 {prop.userDecks && prop.userDecks.map((deck, i) => {
                 return(
-                    <div key={i} onClick={(e) => {handleCurrentDeck(e, deck.deck, deck.id)}}>
+                    <div key={i} onClick={(e) => {handleCurrentDeck(e, deck)}}>
                         {deck.title}
                     </div>
                 )

@@ -5,10 +5,10 @@ export default interface deckPropInterface{
     deckBuilderIsOpen: boolean;
     handleOpenDeckBuilder: () => void,
     handleCloseDeckBuilder: () => void,
-    handleCurrentDeck: (deck: cardInterface[], id: string) => void,
-    currentDeck: cardInterface[],
+    handleCurrentDeck: (deck: userDeckInterface) => void,
+    currentDeck: userDeckInterface | undefined,
     handleCardInfo: (card: cardInterface) => void,
     handleNewDeck: () => void,
-    handleDeleteDeck: () => void,
+    handleDeleteDeck: (deck: userDeckInterface) => void,
     userDecks: userDeckInterface[];
 }
