@@ -34,7 +34,7 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
         
         let needToReturn: boolean = false;
 
-        prop.openDeck.forEach(card => {
+        prop.openDeck && prop.openDeck.forEach(card => {
             if(prop.card && card.id === prop.card.id){
                 setErrMsg("Deck limit reached.")
                 setDeckError(true);
@@ -48,7 +48,7 @@ function CardsColleInfo(prop: cardColleInfoPropInterface){
 
         if(needToReturn) return;
 
-        if(prop.openDeck.length === 7){
+        if(prop.openDeck && prop.openDeck.length === 7){
             setErrMsg("Deck is full.")
             setDeckError(true);
             needToReturn = true;

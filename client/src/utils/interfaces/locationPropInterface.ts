@@ -2,7 +2,7 @@ import locationInterface from "./locationInterface";
 import cardInterface from "./cardInterface";
 
 export default interface locationPropInterface{
-    id: locationInterface,
+    locationInfo: locationInterface | undefined,
     handleDrag: (e: React.DragEvent, data: cardInterface) => void,
     handleDragLeave: (e: React.DragEvent) => void,
     handleOnDrag: (e: React.DragEvent) => void,

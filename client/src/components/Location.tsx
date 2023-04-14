@@ -23,8 +23,8 @@ function Location(prop: locationPropInterface){
         return true;
     }
 
-    const handleSelectedLocation = (e:any, locationData: locationInterface) => {
-        prop.handleLocationDisplay(locationData);
+    const handleSelectedLocation = () => {
+        if(prop.locationInfo) prop.handleLocationDisplay(prop.locationInfo);
         prop.toggleDisplay();
     }
 
@@ -36,10 +36,10 @@ function Location(prop: locationPropInterface){
                     return(<PlayingCard card={card} index={playIndex} oppTimeOutLength={prop.oppTimeOutLength}/>);
                 })}
             </div>
-            <div className="location-mid" onClick={(e) => {handleSelectedLocation(e, prop.id)}}>
-                <span>{prop.id.name}</span>
-                <span className="opp-power">{prop.id.oppPower}</span>
-                <span className="user-power">{prop.id.playerPower}</span>
+            <div className="location-mid" onClick={handleSelectedLocation}>
+                <span>{prop.locationInfo && prop.locationInfo.name}</span>
+                <span className="opp-power">{prop.locationInfo && prop.locationInfo.oppPower}</span>
+                <span className="user-power">{prop.locationInfo && prop.locationInfo.playerPower}</span>
             </div>
             <div className={getBottomLocationClassName()} onDrop={prop.handleOnDrop} onDragOver={prop.handleOnDrag} onDragLeave={prop.handleDragLeave}>
                 {prop.cards && prop.cards.map((card, i) => {

@@ -12,10 +12,7 @@ import "../styles/GameBoard.css";
 function GameBoard(prop: gameBoardPropInterface){
 
     //handle data in hand and locations
-    const [ hand, setHand ] = useState<cardInterface[]>([{id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                                                        {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                                                        {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false}
-                                                        ]);
+    const [ hand, setHand ] = useState<cardInterface[]>([]);
 
     const [ leftLocation, setLeftLocation ] = useState<cardInterface[]>([]);
 
@@ -28,6 +25,12 @@ function GameBoard(prop: gameBoardPropInterface){
     const [ oppMiddleLocation, setOppMiddleLocation ] = useState<cardInterface[]>([]);
 
     const [ oppRightLocation, setOppRightLocation ] = useState<cardInterface[]>([]);
+
+    const [ leftLocationInfo, setLeftLocationInfo ] = useState<locationInterface>();
+
+    const [ middleLocationInfo, setMiddleLocationInfo ] = useState<locationInterface>();
+
+    const [ rightLocationInfo, setRightLocationInfo ] = useState<locationInterface>();
 
     const [ playerTimeOut, setPlayerTimeOut ] = useState(0);
 
@@ -447,6 +450,10 @@ function GameBoard(prop: gameBoardPropInterface){
                 }
             })
 
+            setTimeout(() => {
+                setLeftLocationInfo({id:"1111", name:"Kame House", description:"", playerPower: 69, oppPower: 21})
+                setMiddleLocationInfo({id:"2222", name:"Frieza's Hell", description:"", playerPower: 9, oppPower: 6})
+            }, ((playOrder.length + oppPlayOrder.length) + 0.5) * 1000)
             setPlayOrder([]); 
             return;
         }
@@ -483,6 +490,20 @@ function GameBoard(prop: gameBoardPropInterface){
         setSelectedLocation(locationData);
     }
 
+    //useEffect to fetch and set game data when component renders
+    useEffect(() => {
+        setHand([
+            {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+            {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false}
+        ])
+
+        setLeftLocationInfo({id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0})
+
+        setMiddleLocationInfo({id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0})
+
+        setRightLocationInfo({id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0})
+    }, [])
 
     return(
         <main className="board">
@@ -494,21 +515,21 @@ function GameBoard(prop: gameBoardPropInterface){
             </section>
             <section className="mid-board">
                 <section className="board-locations">
-                    <Location id={{id:"1111", name:"Kame House", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation}
+                    <Location locationInfo={leftLocationInfo} handleDrag={handleDragFromLeft} handleOnDrag={handleDragOverLeftLocation}
                         handleDragLeave={handleDragLeaveLeftLocation} handleOnDrop={handleDropLeftLocation} cards={leftLocation}
                         oppCards={oppLeftLocation} hover={hoverLeft} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana} 
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
                         playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut} playerPlayOrder={apiPlayOrder}
                         opponentPlayOrder={oppPlayOrder}/>
-                    <Location id={{id:"2222", name:"Frieza's Hell", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
+                    <Location locationInfo={middleLocationInfo} handleDrag={handleDragFromMid} handleOnDrag={handleDragOverMidLocation}
                         handleDragLeave={handleDragLeaveMidLocation} handleOnDrop={handleDropMidLocation} cards={middleLocation}
                         oppCards={oppMiddleLocation} hover={hoverMid} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
                         selectCard={displayCardInfo} toggleDisplay={toggleCardDisplay} handleLocationDisplay={handleDisplayingLocation}
                         playerTimeOutLength={playerTimeOut} oppTimeOutLength={oppTimeOut} playerPlayOrder={apiPlayOrder}
                         opponentPlayOrder={oppPlayOrder}/> 
-                    <Location id={{id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0}} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
+                    <Location locationInfo={rightLocationInfo} handleDrag={handleDragFromRight} handleOnDrag={handleDragOverRightLocation}
                         handleDragLeave={handleDragLeaveRightLocation} handleOnDrop={handleDropRightLocation} cards={rightLocation}
                         oppCards={oppRightLocation} hover={hoverRight} draggingCard={dragging}
                         dragEndCard={cardDragEnd} playedCards={played} myMana={mana}
