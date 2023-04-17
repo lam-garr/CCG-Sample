@@ -12,36 +12,33 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Component
-@AllArgsConstructor
-public class JwtAuthFilter extends OncePerRequestFilter{
-    
+@RequiredArgsConstructor
+public class JwtAuthFilter extends OncePerRequestFilter {
+
     private final JwtDecoder jwtDecoder;
 
     private final JwtToPrincipal jwtToPrincipal;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         extractToken(request)
-                .map(jwtDecoder::decode)
-                .map(jwtToPrincipal::convert)
-                .map(UserPrincipalAuthToken::new)
-                .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
+            .map(jwtDecoder::decode)
+            .map(jwtToPrincipal::convert)
+            .map(UserPrincipalAuthToken::new)
+            .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
 
         filterChain.doFilter(request, response);
     }
 
     private Optional<String> extractToken(HttpServletRequest req){
         var token = req.getHeader("Authorization");
-
         if(StringUtils.hasText(token) && token.startsWith("Bearer ")){
             return Optional.of(token.substring(7));
         }
-
         return Optional.empty();
     }
-
+    
 }
