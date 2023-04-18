@@ -1,6 +1,7 @@
 package com.example.server.services;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -23,8 +24,8 @@ public class UserService {
     private MongoTemplate mongoTemplate;
 
     public void addUser(String username, String password) {
-        int randId = (int)(Math.random() * 9999 + 1);
-        userRepository.save(new User(randId, username, new BCryptPasswordEncoder().encode(password)));
+        //int randId = (int)(Math.random() * 9999 + 1);
+        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password)));
         return;
     }
 
@@ -39,7 +40,7 @@ public class UserService {
 
         user.setId(theUser.getId());
         user.setUsername(theUser.getUsername());
-        user.setPassword(new BCryptPasswordEncoder().encode(theUser.getPassword()));
+        user.setPassword(theUser.getPassword());
         return Optional.of(user);
     }
 }

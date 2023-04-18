@@ -20,4 +20,5 @@ public class UserController {
         userService.addUser(req.getUsername(), req.getPassword());
         return;
     }
+
 }

@@ -11,7 +11,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 @Component
 public class JwtIssuer {
-    public String issue(int userId, String username){
+    public String issue(String userId, String username){
         return JWT.create()
             .withSubject(String.valueOf(userId))
             .withClaim("username", username)

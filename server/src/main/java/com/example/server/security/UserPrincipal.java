@@ -14,7 +14,7 @@ import lombok.Getter;
 @Builder
 public class UserPrincipal implements UserDetails{
 
-    private final int userId;
+    private final String userId;
     private final String username;
     @JsonIgnore
     private final String password; 

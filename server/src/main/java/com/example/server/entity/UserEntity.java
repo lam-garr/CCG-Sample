@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class UserEntity {
     
-    private int id;
+    private String id;
     private String username;
     @JsonIgnore
     private String password;

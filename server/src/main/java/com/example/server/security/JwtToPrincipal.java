@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JwtToPrincipal {
     public UserPrincipal convert(DecodedJWT jwt){
         return UserPrincipal.builder()
-            .userId(Integer.valueOf(jwt.getSubject()))
+            .userId(jwt.getSubject())
             .username(jwt.getClaim("username").asString())
             .build();
     }
