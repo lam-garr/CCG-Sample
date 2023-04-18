@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserEntity {
+    
     private int id;
     private String username;
     @JsonIgnore

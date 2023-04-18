@@ -44,7 +44,7 @@ public class AuthController {
 
     @GetMapping("/secure")
     public String secure(@AuthenticationPrincipal UserPrincipal principal){
-        return "Logged in as: " + principal.getUserId();
+        return "Logged in as: " + principal.getUsername();
     }
 }
 
