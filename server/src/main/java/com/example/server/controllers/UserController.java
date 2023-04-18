@@ -15,4 +15,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping(path="/signup")
+    public void add(@RequestBody SignUpReq req) {
+        userService.addUser(req.getUsername(), req.getPassword());
+        return;
+    }
 }

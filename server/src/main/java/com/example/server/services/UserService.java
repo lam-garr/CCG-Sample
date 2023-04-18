@@ -1,7 +1,6 @@
 package com.example.server.services;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -23,11 +22,17 @@ public class UserService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    public void addUser(String username, String password) {
+        int randId = (int)(Math.random() * 9999 + 1);
+        userRepository.save(new User(randId, username, new BCryptPasswordEncoder().encode(password)));
+        return;
+    }
+
     public Optional<UserEntity> findByUsername(String username){
         final Query query = new Query();
         query.addCriteria(Criteria.where("username").is(username));
         final User theUser = mongoTemplate.findOne(query, User.class);
-
+        
         if(theUser == null) return Optional.empty();
 
         var user = new UserEntity();
