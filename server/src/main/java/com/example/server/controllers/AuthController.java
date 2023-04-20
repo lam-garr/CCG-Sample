@@ -41,10 +41,5 @@ public class AuthController {
             .accessToken(token)
             .build();
     }
-
-    @GetMapping("/secure")
-    public String secure(@AuthenticationPrincipal UserPrincipal principal){
-        return "Logged in as: " + principal.getUsername();
-    }
 }
 

@@ -1,5 +1,7 @@
 package com.example.server.models;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -19,4 +21,5 @@ public class User {
     private String id;
     private String username;
     private String password;
+    private List<Card> userCardCollection;
 }

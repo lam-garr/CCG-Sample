@@ -1,5 +1,6 @@
 package com.example.server.services;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.server.entity.UserEntity;
+import com.example.server.models.Card;
+import com.example.server.models.InitialCardCollection;
 import com.example.server.models.User;
 import com.example.server.repository.UserRepository;
 
@@ -25,7 +28,8 @@ public class UserService {
 
     public void addUser(String username, String password) {
         //int randId = (int)(Math.random() * 9999 + 1);
-        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password)));
+        InitialCardCollection cardCollection = new InitialCardCollection();
+        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password), cardCollection.getCardCollection()));
         return;
     }
 
@@ -42,5 +46,13 @@ public class UserService {
         user.setUsername(theUser.getUsername());
         user.setPassword(theUser.getPassword());
         return Optional.of(user);
+    }
+
+    public List<Card> getUserCardCollection(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User theUser = mongoTemplate.findOne(query, User.class);
+
+        return theUser.getUserCardCollection();
     }
 }
