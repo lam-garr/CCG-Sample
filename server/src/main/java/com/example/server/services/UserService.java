@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.server.entity.UserEntity;
 import com.example.server.models.Card;
+import com.example.server.models.Deck;
+import com.example.server.models.DeckCollection;
 import com.example.server.models.InitialCardCollection;
 import com.example.server.models.User;
 import com.example.server.repository.UserRepository;
@@ -29,7 +31,8 @@ public class UserService {
     public void addUser(String username, String password) {
         //int randId = (int)(Math.random() * 9999 + 1);
         InitialCardCollection cardCollection = new InitialCardCollection();
-        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password), cardCollection.getCardCollection()));
+        DeckCollection deckCollection = new DeckCollection();
+        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password), cardCollection.getCardCollection(), deckCollection.getDecks()));
         return;
     }
 
@@ -54,5 +57,13 @@ public class UserService {
         final User theUser = mongoTemplate.findOne(query, User.class);
 
         return theUser.getUserCardCollection();
+    }
+
+    public List<Deck> getUserDeckCollection(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User theUser = mongoTemplate.findOne(query, User.class);
+
+        return theUser.getUserDeckCollection();
     }
 }

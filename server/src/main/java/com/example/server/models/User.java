@@ -22,4 +22,5 @@ public class User {
     private String username;
     private String password;
     private List<Card> userCardCollection;
+    private List<Deck> userDeckCollection;
 }
