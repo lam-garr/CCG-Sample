@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.models.Card;
 import com.example.server.models.Deck;
+import com.example.server.models.DeckReq;
 import com.example.server.models.SignUpReq;
 import com.example.server.security.UserPrincipal;
 import com.example.server.services.UserService;
@@ -42,5 +43,16 @@ public class UserController {
     @GetMapping(path="/deck-collection")
     public ResponseEntity<List<Deck>> getUserDeckCollection(@AuthenticationPrincipal UserPrincipal principal) {
         return new ResponseEntity<List<Deck>>(userService.getUserDeckCollection(principal.getUserId()), HttpStatus.OK);
+    }
+
+    @PostMapping(path="/add-deck")
+    public void addDeckToCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
+
+/*         Deck myDeck = new Deck();
+
+        myDeck.addToDeck(new Card("1", "Goku", "Son Goku", 2, 3, false));
+ */
+        userService.addDeckToCollection(deck.getDeck(), principal.getUserId());
+        return;
     }
 }

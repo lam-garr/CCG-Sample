@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +66,15 @@ public class UserService {
         final User theUser = mongoTemplate.findOne(query, User.class);
 
         return theUser.getUserDeckCollection();
+    }
+
+    public void addDeckToCollection(List<Card> deck, String id) {
+        
+        mongoTemplate.update(User.class)
+            .matching(Criteria.where("id").is(id))
+            .apply(new Update().push("userDeckCollection").value(new Deck(deck)))
+            .first();
+            
+        return;
     }
 }

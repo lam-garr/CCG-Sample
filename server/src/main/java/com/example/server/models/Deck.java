@@ -14,4 +14,15 @@ public class Deck {
     public Deck() {
         this.deck = new ArrayList<Card>();
     }
+
+    public Deck(List<Card> deck) {
+        this.deck = new ArrayList<Card>();
+        for(Card card : deck) {
+            this.addToDeck(card);
+        }
+    }
+
+    public void addToDeck(Card card) {
+        this.deck.add(card);
+    }
 }

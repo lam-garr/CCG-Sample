@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class InitialCardCollection {
+
     private List<Card> cardCollection;
 
     public InitialCardCollection() {
