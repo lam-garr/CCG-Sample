@@ -52,7 +52,7 @@ public class UserController {
 
         myDeck.addToDeck(new Card("1", "Goku", "Son Goku", 2, 3, false));
  */
-        userService.addDeckToCollection(deck.getDeck(), principal.getUserId());
+        userService.addDeckToCollection(deck.getDeck(), principal.getUserId(), deck.getId(), deck.getName());
         return;
     }
 }

@@ -68,11 +68,11 @@ public class UserService {
         return theUser.getUserDeckCollection();
     }
 
-    public void addDeckToCollection(List<Card> deck, String id) {
+    public void addDeckToCollection(List<Card> deck, String id, String deckId, String deckName) {
         
         mongoTemplate.update(User.class)
             .matching(Criteria.where("id").is(id))
-            .apply(new Update().push("userDeckCollection").value(new Deck(deck)))
+            .apply(new Update().push("userDeckCollection").value(new Deck(deck, deckId, deckName)))
             .first();
             
         return;

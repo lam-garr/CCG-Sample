@@ -14,5 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeckReq {
+    private String id;
+    private String name;
     private List<Card> deck;
 }

@@ -9,13 +9,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Deck {
+
+    private String id;
+    private String name;
     private List<Card> deck;
 
     public Deck() {
         this.deck = new ArrayList<Card>();
     }
 
-    public Deck(List<Card> deck) {
+    public Deck(List<Card> deck, String id, String name) {
+        this.id = id;
+        this.name = name;
         this.deck = new ArrayList<Card>();
         for(Card card : deck) {
             this.addToDeck(card);
