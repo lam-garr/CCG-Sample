@@ -19,6 +19,7 @@ import com.example.server.models.DeckCollection;
 import com.example.server.models.InitialCardCollection;
 import com.example.server.models.User;
 import com.example.server.repository.UserRepository;
+import com.mongodb.BasicDBObject;
 
 @Service
 public class UserService {
@@ -69,12 +70,19 @@ public class UserService {
     }
 
     public void addDeckToCollection(List<Card> deck, String id, String deckId, String deckName) {
-        
         mongoTemplate.update(User.class)
             .matching(Criteria.where("id").is(id))
             .apply(new Update().push("userDeckCollection").value(new Deck(deck, deckId, deckName)))
             .first();
             
         return;
+    }
+
+    public void deleteDeckFromCollection(String id, String deckId) {
+        mongoTemplate.updateFirst(
+            Query.query(Criteria.where("id").is(id)),
+            new Update().pull("userDeckCollection", new BasicDBObject("id", deckId)),
+            User.class
+        );
     }
 }

@@ -47,12 +47,12 @@ public class UserController {
 
     @PostMapping(path="/add-deck")
     public void addDeckToCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
-
-/*         Deck myDeck = new Deck();
-
-        myDeck.addToDeck(new Card("1", "Goku", "Son Goku", 2, 3, false));
- */
         userService.addDeckToCollection(deck.getDeck(), principal.getUserId(), deck.getId(), deck.getName());
         return;
+    }
+
+    @PostMapping(path="/delete-deck")
+    public void deleteDeckFromCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
+        userService.deleteDeckFromCollection(principal.getUserId(), deck.getId());
     }
 }
