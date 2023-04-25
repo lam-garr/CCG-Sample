@@ -85,4 +85,17 @@ public class UserService {
             User.class
         );
     }
+
+    public void updateDeckFromCollection(List<Card> deck, String id, String deckId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id).and("userDeckCollection")
+            .elemMatch(Criteria.where("id").is(deckId)));
+
+        Update update = new Update();
+        update.set("userDeckCollection.$.deck", deck);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
 }

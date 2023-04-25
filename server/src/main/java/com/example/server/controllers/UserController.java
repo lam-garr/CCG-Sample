@@ -55,4 +55,9 @@ public class UserController {
     public void deleteDeckFromCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
         userService.deleteDeckFromCollection(principal.getUserId(), deck.getId());
     }
+
+    @PostMapping(path = "/update-deck")
+    public void updateDeckFromCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
+        userService.updateDeckFromCollection(deck.getDeck(), principal.getUserId(), deck.getId());
+    }
 }
