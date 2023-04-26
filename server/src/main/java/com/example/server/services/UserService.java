@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.server.entity.UserEntity;
 import com.example.server.models.Card;
+import com.example.server.models.DbCards;
 import com.example.server.models.Deck;
 import com.example.server.models.DeckCollection;
 import com.example.server.models.InitialCardCollection;
@@ -31,8 +32,11 @@ public class UserService {
     private MongoTemplate mongoTemplate;
 
     public void addUser(String username, String password) {
-        //int randId = (int)(Math.random() * 9999 + 1);
-        InitialCardCollection cardCollection = new InitialCardCollection();
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is("1"));
+        final DbCards dbCards = mongoTemplate.findOne(query, DbCards.class);
+
+        InitialCardCollection cardCollection = new InitialCardCollection(dbCards.getAllCards());
         DeckCollection deckCollection = new DeckCollection();
         userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password), cardCollection.getCardCollection(), deckCollection.getDecks()));
         return;
