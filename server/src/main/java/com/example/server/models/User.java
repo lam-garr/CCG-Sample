@@ -17,10 +17,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-
     private String id;
     private String username;
     private String password;
     private List<Card> userCardCollection;
     private List<Deck> userDeckCollection;
+    private GameState gameState;
 }

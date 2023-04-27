@@ -17,6 +17,7 @@ import com.example.server.models.Card;
 import com.example.server.models.DbCards;
 import com.example.server.models.Deck;
 import com.example.server.models.DeckCollection;
+import com.example.server.models.GameState;
 import com.example.server.models.InitialCardCollection;
 import com.example.server.models.User;
 import com.example.server.repository.UserRepository;
@@ -38,7 +39,14 @@ public class UserService {
 
         InitialCardCollection cardCollection = new InitialCardCollection(dbCards.getAllCards());
         DeckCollection deckCollection = new DeckCollection();
-        userRepository.save(new User(UUID.randomUUID().toString(), username, new BCryptPasswordEncoder().encode(password), cardCollection.getCardCollection(), deckCollection.getDecks()));
+        GameState gameState = new GameState();
+        userRepository.save(new User(UUID.randomUUID().toString(),
+            username,
+            new BCryptPasswordEncoder().encode(password),
+            cardCollection.getCardCollection(),
+            deckCollection.getDecks(),
+            gameState));
+            
         return;
     }
 
