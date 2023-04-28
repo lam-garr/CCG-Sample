@@ -15,7 +15,7 @@ public class GameState {
     private boolean state;
     private String turn;
     private List<Card> playerLeftLocation;
-    private List<Card> playerMiddleLoaction;
+    private List<Card> playerMiddleLocation;
     private List<Card> playerRightLocation;
     private int playerLeftPower;
     private int playerMiddlePower;
@@ -31,7 +31,7 @@ public class GameState {
         this.state = false;
         this.turn = "";
         this.playerLeftLocation = new ArrayList<Card>();
-        this.playerMiddleLoaction = new ArrayList<Card>();
+        this.playerMiddleLocation = new ArrayList<Card>();
         this.playerRightLocation = new ArrayList<Card>();
         this.playerLeftPower = 0;
         this.playerMiddlePower = 0;
