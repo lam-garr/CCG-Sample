@@ -140,4 +140,34 @@ public class UserService {
 
         return gameState.getPlayerRightLocation();
     }
+
+    public List<Card> getOppLeftLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppLeftLocation();
+    }
+
+    public List<Card> getOppMidLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppMiddleLocation();
+    }
+
+    public List<Card> getOppRightLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppRightLocation();
+    }
 }

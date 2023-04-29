@@ -21,7 +21,7 @@ public class GameState {
     private int playerMiddlePower;
     private int playerRightPower;
     private List<Card> oppLeftLocation;
-    private List<Card> oppMiddleLoaction;
+    private List<Card> oppMiddleLocation;
     private List<Card> oppRightLocation;
     private int oppLeftPower;
     private int oppMiddlePower;
@@ -37,7 +37,7 @@ public class GameState {
         this.playerMiddlePower = 0;
         this.playerRightPower = 0;
         this.oppLeftLocation = new ArrayList<Card>();
-        this.oppMiddleLoaction = new ArrayList<Card>();
+        this.oppMiddleLocation = new ArrayList<Card>();
         this.oppRightLocation = new ArrayList<Card>();
         this.oppLeftPower = 0;
         this.oppMiddlePower = 0;

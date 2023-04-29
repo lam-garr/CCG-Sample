@@ -75,4 +75,19 @@ public class UserController {
     public List<Card> getUserRightLocation(@AuthenticationPrincipal UserPrincipal principal) {
         return userService.getUserRightLocation(principal.getUserId());
     }
+
+    @GetMapping(path="/opp-left-location")
+    public List<Card> getOppLeftLocation(@AuthenticationPrincipal UserPrincipal principal) {
+        return userService.getOppLeftLocation(principal.getUserId());
+    }
+
+    @GetMapping(path="/opp-mid-location")
+    public List<Card> getOppMidLocation(@AuthenticationPrincipal UserPrincipal principal) {
+        return userService.getOppMidLocation(principal.getUserId());
+    }
+
+    @GetMapping(path="/opp-right-location")
+    public List<Card> getOppRightLocation(@AuthenticationPrincipal UserPrincipal principal) {
+        return userService.getOppRightLocation(principal.getUserId());
+    }
 }
