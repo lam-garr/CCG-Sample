@@ -60,34 +60,5 @@ public class UserController {
     public void updateDeckFromCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
         userService.updateDeckFromCollection(deck.getDeck(), principal.getUserId(), deck.getId());
     }
-
-    @GetMapping(path="/user-left-location")
-    public List<Card> getUserLeftLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getUserLeftLocation(principal.getUserId());
-    }
-
-    @GetMapping(path="/user-mid-location")
-    public List<Card> getUserMidLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getUserMidLocation(principal.getUserId());
-    }
-
-    @GetMapping(path="/user-right-location")
-    public List<Card> getUserRightLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getUserRightLocation(principal.getUserId());
-    }
-
-    @GetMapping(path="/opp-left-location")
-    public List<Card> getOppLeftLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getOppLeftLocation(principal.getUserId());
-    }
-
-    @GetMapping(path="/opp-mid-location")
-    public List<Card> getOppMidLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getOppMidLocation(principal.getUserId());
-    }
-
-    @GetMapping(path="/opp-right-location")
-    public List<Card> getOppRightLocation(@AuthenticationPrincipal UserPrincipal principal) {
-        return userService.getOppRightLocation(principal.getUserId());
-    }
+    
 }
