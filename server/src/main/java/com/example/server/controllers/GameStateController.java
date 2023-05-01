@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.models.Card;
+import com.example.server.models.LocationReq;
 import com.example.server.security.UserPrincipal;
 import com.example.server.services.GameStateService;
 
@@ -46,5 +49,20 @@ public class GameStateController {
     @GetMapping(path="/opp-right-location")
     public List<Card> getOppRightLocation(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getOppRightLocation(principal.getUserId());
+    }
+
+    @PostMapping(path="/update-user-left-location")
+    public List<Card> updateUserLeftLocation(@RequestBody LocationReq locationCards, @AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.updateUserLeftLocation(locationCards.getLocationCards(), principal.getUserId());
+    }
+
+    @PostMapping(path="/update-user-middle-location")
+    public List<Card> updateUserMiddleLocation(@RequestBody LocationReq locationCards, @AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.updateUserMiddleLocation(locationCards.getLocationCards(), principal.getUserId());
+    }
+
+    @PostMapping(path="/update-user-right-location")
+    public List<Card> updateUserRightLocation(@RequestBody LocationReq locationCards, @AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.updateUserRightLocation(locationCards.getLocationCards(), principal.getUserId());
     }
 }

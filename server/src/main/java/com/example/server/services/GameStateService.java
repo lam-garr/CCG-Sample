@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.example.server.models.Card;
@@ -76,5 +77,59 @@ public class GameStateService {
         final GameState gameState = targetUser.getGameState();
 
         return gameState.getOppRightLocation();
+    }
+
+    public List<Card> updateUserLeftLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerLeftLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
+
+    }
+
+    public List<Card> updateUserMiddleLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update();
+        update.set("gameState.playerMiddleLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
+    }
+
+    public List<Card> updateUserRightLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerRightLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
     }
 }
