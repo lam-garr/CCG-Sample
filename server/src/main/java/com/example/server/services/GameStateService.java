@@ -132,4 +132,58 @@ public class GameStateService {
 
         return theCards;
     }
+
+    public List<Card> updateOppLeftLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppLeftLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
+    }
+
+    public List<Card> updateOppMiddleLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppMiddleLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
+    }
+
+    public List<Card> updateOppRightLocation(List<Card> locationCards, String id) {
+        List<Card> theCards = locationCards;
+
+        for(Card card : theCards){
+            card.setFlip(true);
+        }
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppRightLocation", theCards);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return theCards;
+    }
 }
