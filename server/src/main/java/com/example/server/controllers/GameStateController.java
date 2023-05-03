@@ -80,4 +80,19 @@ public class GameStateController {
     public List<Card> updateOppRightLocation(@RequestBody LocationReq locationCards, @AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.updateOppRightLocation(locationCards.getLocationCards(), principal.getUserId());
     }
+
+    @GetMapping(path="/user-left-location-power")
+    public int getUserLeftLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserLeftLocationPower(principal.getUserId());
+    }
+
+    @GetMapping(path="/user-middle-location-power")
+    public int getUserMiddleLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserMiddleLocationPower(principal.getUserId());
+    }
+
+    @GetMapping(path="/user-right-location-power")
+    public int getUserRightLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserRightLocationPower(principal.getUserId());
+    }
 }
