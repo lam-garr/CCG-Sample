@@ -95,4 +95,19 @@ public class GameStateController {
     public int getUserRightLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getUserRightLocationPower(principal.getUserId());
     }
+    //
+    @GetMapping(path="/opp-left-location-power")
+    public int getOppLeftLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserLeftLocationPower(principal.getUserId());
+    }
+
+    @GetMapping(path="/opp-middle-location-power")
+    public int getOppMiddleLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserMiddleLocationPower(principal.getUserId());
+    }
+
+    @GetMapping(path="/opp-right-location-power")
+    public int getoppRightLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getUserRightLocationPower(principal.getUserId());
+    }
 }

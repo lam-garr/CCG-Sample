@@ -216,4 +216,34 @@ public class GameStateService {
 
         return gameState.getPlayerRightPower();
     }
+
+    public int getOppLeftLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppLeftPower();
+    }
+
+    public int getOppMiddleLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppMiddlePower();
+    }
+
+    public int getOppRightLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getOppRightPower();
+    }
 }
