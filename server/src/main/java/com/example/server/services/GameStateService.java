@@ -94,8 +94,9 @@ public class GameStateService {
 
         mongoTemplate.findAndModify(query, update, User.class);
 
-        return theCards;
+        this.updateUserLeftLocationPower(id);
 
+        return theCards;
     }
 
     public List<Card> updateUserMiddleLocation(List<Card> locationCards, String id) {
@@ -111,6 +112,8 @@ public class GameStateService {
         update.set("gameState.playerMiddleLocation", theCards);
 
         mongoTemplate.findAndModify(query, update, User.class);
+
+        this.updateUserMiddleLocationPower(id);
 
         return theCards;
     }
@@ -129,6 +132,8 @@ public class GameStateService {
         update.set("gameState.playerRightLocation", theCards);
 
         mongoTemplate.findAndModify(query, update, User.class);
+
+        this.updateUserRightLocationPower(id);
 
         return theCards;
     }
@@ -245,5 +250,74 @@ public class GameStateService {
         final GameState gameState = targetUser.getGameState();
 
         return gameState.getOppRightPower();
+    }
+
+    private void updateUserLeftLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        final List<Card> locationArr = gameState.getPlayerLeftLocation();
+
+        int power = 0;
+
+        for(Card card : locationArr){
+            power += card.getPower();
+        }
+
+        Update update = new Update();
+        update.set("gameState.playerLeftPower", power);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void updateUserMiddleLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        final List<Card> locationArr = gameState.getPlayerMiddleLocation();
+
+        int power = 0;
+
+        for(Card card : locationArr){
+            power += card.getPower();
+        }
+
+        Update update = new Update();
+        update.set("gameState.playerMiddlePower", power);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void updateUserRightLocationPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        final List<Card> locationArr = gameState.getPlayerRightLocation();
+
+        int power = 0;
+
+        for(Card card : locationArr){
+            power += card.getPower();
+        }
+
+        Update update = new Update();
+        update.set("gameState.playerRightPower", power);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
     }
 }
