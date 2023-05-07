@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GameState {
-    private boolean state;
+    private boolean gameStatePresent;
     private String turn;
     private List<Card> playerLeftLocation;
     private List<Card> playerMiddleLocation;
@@ -28,7 +28,7 @@ public class GameState {
     private int oppRightPower;
 
     public GameState() {
-        this.state = false;
+        this.gameStatePresent = false;
         this.turn = "";
         this.playerLeftLocation = new ArrayList<Card>();
         this.playerMiddleLocation = new ArrayList<Card>();

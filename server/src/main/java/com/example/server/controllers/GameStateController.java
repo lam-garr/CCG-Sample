@@ -110,4 +110,10 @@ public class GameStateController {
     public int getoppRightLocationPower(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getUserRightLocationPower(principal.getUserId());
     }
+
+    @GetMapping(path="/game-state-present")
+    public boolean getGameStatePresent(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getGameStatePresent(principal.getUserId());
+    }
 }
+
