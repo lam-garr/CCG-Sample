@@ -115,5 +115,10 @@ public class GameStateController {
     public boolean getGameStatePresent(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getGameStatePresent(principal.getUserId());
     }
+
+    @GetMapping(path="/get-user-mana")
+    public int getUserMana(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getMana(principal.getUserId());
+    }
 }
 

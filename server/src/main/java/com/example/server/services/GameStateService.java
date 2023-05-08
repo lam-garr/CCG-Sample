@@ -417,4 +417,26 @@ public class GameStateService {
 
         return;
     }
+
+    public int getMana(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getMana();
+    }
+
+    private void setMana(String id, int manaAmount) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.mana", manaAmount);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
 }
