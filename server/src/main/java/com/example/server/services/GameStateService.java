@@ -1,6 +1,7 @@
 package com.example.server.services;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -438,5 +439,11 @@ public class GameStateService {
         mongoTemplate.findAndModify(query, update, User.class);
 
         return;
+    }
+
+    public int getPlayerOne() {
+        Random rand = new Random();
+        //will return either 1 or 2
+        return 1 + rand.nextInt(1); 
     }
 }
