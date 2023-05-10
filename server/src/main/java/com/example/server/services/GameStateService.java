@@ -446,4 +446,26 @@ public class GameStateService {
         //will return either 1 or 2
         return 1 + rand.nextInt(1); 
     }
+
+    public int getTurnNumber(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getTurnNumber();
+    }
+
+    private void setTurnNumber(String id, int newTurnNumber) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.turnNumber", newTurnNumber);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
 }

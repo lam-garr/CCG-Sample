@@ -125,5 +125,10 @@ public class GameStateController {
     public int getPlayerOne() {
         return gameStateService.getPlayerOne();
     }
+
+    @GetMapping(path="/get-turn-number")
+    public int getTurnNumber(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getTurnNumber(principal.getUserId());
+    }
 }
 

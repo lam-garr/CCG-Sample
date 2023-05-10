@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GameState {
     private boolean gameStatePresent;
-    private String turn;
+    private int turnNumber;
     private int mana;
     private List<Card> playerLeftLocation;
     private List<Card> playerMiddleLocation;
@@ -30,7 +30,7 @@ public class GameState {
 
     public GameState() {
         this.gameStatePresent = false;
-        this.turn = "";
+        this.turnNumber = 1;
         this.mana = 0;
         this.playerLeftLocation = new ArrayList<Card>();
         this.playerMiddleLocation = new ArrayList<Card>();
