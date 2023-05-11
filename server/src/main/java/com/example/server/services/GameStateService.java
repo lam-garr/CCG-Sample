@@ -468,4 +468,14 @@ public class GameStateService {
 
         return;
     }
+
+    public String getPriority(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getPriority();
+    }
 }

@@ -130,5 +130,10 @@ public class GameStateController {
     public int getTurnNumber(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getTurnNumber(principal.getUserId());
     }
+
+    @GetMapping(path="get-priority")
+    public String getPriority(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getPriority(principal.getUserId());
+    }
 }
 
