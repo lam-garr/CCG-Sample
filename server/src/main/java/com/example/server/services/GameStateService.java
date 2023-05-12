@@ -478,4 +478,16 @@ public class GameStateService {
 
         return gameState.getPriority();
     }
+
+    private void setPriority(String id, String newPriority) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.priority", newPriority);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
 }
