@@ -135,5 +135,10 @@ public class GameStateController {
     public String getPriority(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getPriority(principal.getUserId());
     }
+
+    @GetMapping(path="get-winner")
+    public String getWinner(@AuthenticationPrincipal UserPrincipal principal) {
+        return gameStateService.getWinner(principal.getUserId());
+    }
 }
 

@@ -490,4 +490,64 @@ public class GameStateService {
 
         return;
     }
+
+    public String getWinner(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        String leftLocationWinner;
+        String middleLocationWinner;
+        String rightLocationWinner;
+
+        if(gameState.getPlayerLeftPower() > gameState.getOppLeftPower()) {
+            leftLocationWinner = "player";
+        } else {
+            leftLocationWinner = "opp";
+        }
+
+        if(gameState.getPlayerMiddlePower() > gameState.getOppMiddlePower()) {
+            middleLocationWinner = "player";
+        } else {
+            middleLocationWinner = "opp";
+        }
+
+        if(gameState.getPlayerRightPower() > gameState.getOppRightPower()) {
+            rightLocationWinner = "player";
+        } else {
+            rightLocationWinner = "opp";
+        }
+
+        if(leftLocationWinner.equals("player") &&
+            middleLocationWinner.equals("player") &&
+            rightLocationWinner.equals("player")) {
+            return "player";
+        } else if(leftLocationWinner.equals("opp") &&
+            middleLocationWinner.equals("opp") &&
+            rightLocationWinner.equals("opp")) {
+            return "opp";
+        }
+
+        if(leftLocationWinner.equals("player") && middleLocationWinner.equals("player")) {
+            return "player";
+        } else if(leftLocationWinner.equals("opp") && middleLocationWinner.equals("opp")) {
+            return "opp";
+        }
+
+        if(middleLocationWinner.equals("player") && rightLocationWinner.equals("player")) {
+            return "player";
+        } else if(middleLocationWinner.equals("opp") && rightLocationWinner.equals("opp")) {
+            return "opp";
+        }
+
+        if(leftLocationWinner.equals("player") && rightLocationWinner.equals("player")) {
+            return "player";
+        } else if(leftLocationWinner.equals("player") && rightLocationWinner.equals("player")) {
+            return "opp";
+        }
+
+        return "";
+    }
 }
