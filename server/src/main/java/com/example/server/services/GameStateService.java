@@ -548,6 +548,14 @@ public class GameStateService {
             return "opp";
         }
 
-        return "";
+        return getTieBreaker((gameState.getPlayerLeftPower() + gameState.getPlayerMiddlePower() + gameState.getPlayerRightPower()),
+        (gameState.getOppLeftPower() + gameState.getOppMiddlePower() + gameState.getOppRightPower()));
+    }
+
+    private String getTieBreaker(int playerMaxLocationPower, int oppMaxLocationPower) {
+        if(playerMaxLocationPower > oppMaxLocationPower) {
+            return "player";
+        }
+        return "opp";
     }
 }
