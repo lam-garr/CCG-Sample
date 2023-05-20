@@ -140,5 +140,11 @@ public class GameStateController {
     public String getWinner(@AuthenticationPrincipal UserPrincipal principal) {
         return gameStateService.getWinner(principal.getUserId());
     }
+
+    @GetMapping(path="reset-game-state")
+    public void resetGameState(@AuthenticationPrincipal UserPrincipal principal) {
+        gameStateService.resetGameState(principal.getUserId());
+        return;
+    }
 }
 

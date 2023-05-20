@@ -558,4 +558,20 @@ public class GameStateService {
         }
         return "opp";
     }
+
+    public void resetGameState(String id) {
+        resetGameStatePresent(id);
+        return;
+    }
+
+    private void resetGameStatePresent(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.gameStatePresent", false);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+        return;
+    }
 }
