@@ -561,6 +561,8 @@ public class GameStateService {
 
     public void resetGameState(String id) {
         resetGameStatePresent(id);
+        resetTurnNumber(id);
+        resetPriority(id);
         return;
     }
 
@@ -570,6 +572,28 @@ public class GameStateService {
 
         Update update = new Update();
         update.set("gameState.gameStatePresent", false);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+        return;
+    }
+
+    private void resetTurnNumber(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.turnNumber", 0);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+        return;
+    }
+
+    private void resetPriority(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.priority", "");
 
         mongoTemplate.findAndModify(query, update, User.class);
         return;
