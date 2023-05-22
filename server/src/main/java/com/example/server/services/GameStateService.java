@@ -1,5 +1,6 @@
 package com.example.server.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -563,6 +564,9 @@ public class GameStateService {
         resetGameStatePresent(id);
         resetTurnNumber(id);
         resetPriority(id);
+        resetPlayerLeftLocation(id);
+        resetPlayerMiddleLocation(id);
+        resetPlayerRightLocation(id);
         return;
     }
 
@@ -596,6 +600,48 @@ public class GameStateService {
         update.set("gameState.priority", "");
 
         mongoTemplate.findAndModify(query, update, User.class);
+        return;
+    }
+
+    private void resetPlayerLeftLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerLeftLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetPlayerMiddleLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerMiddleLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetPlayerRightLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerRightLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
         return;
     }
 }
