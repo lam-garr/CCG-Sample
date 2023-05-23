@@ -567,6 +567,9 @@ public class GameStateService {
         resetPlayerLeftLocation(id);
         resetPlayerMiddleLocation(id);
         resetPlayerRightLocation(id);
+        resetOppLeftLocation(id);
+        resetOppMiddleLocation(id);
+        resetOppRightLocation(id);
         return;
     }
 
@@ -639,6 +642,48 @@ public class GameStateService {
 
         Update update = new Update();
         update.set("gameState.playerRightLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetOppLeftLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppLeftLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetOppMiddleLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppMiddleLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetOppRightLocation(String id) {
+        List<Card> resetLocation = new ArrayList<Card>();
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.oppRightLocation", resetLocation);
 
         mongoTemplate.findAndModify(query, update, User.class);
 
