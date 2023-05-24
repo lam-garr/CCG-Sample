@@ -564,6 +564,7 @@ public class GameStateService {
         resetGameStatePresent(id);
         resetTurnNumber(id);
         resetPriority(id);
+        resetMana(id);
         resetPlayerLeftLocation(id);
         resetPlayerMiddleLocation(id);
         resetPlayerRightLocation(id);
@@ -601,6 +602,17 @@ public class GameStateService {
 
         Update update = new Update();
         update.set("gameState.priority", "");
+
+        mongoTemplate.findAndModify(query, update, User.class);
+        return;
+    }
+
+    private void resetMana(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.mana", 0);
 
         mongoTemplate.findAndModify(query, update, User.class);
         return;
