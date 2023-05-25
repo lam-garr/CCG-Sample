@@ -571,6 +571,9 @@ public class GameStateService {
         resetOppLeftLocation(id);
         resetOppMiddleLocation(id);
         resetOppRightLocation(id);
+        resetPlayerLeftPower(id);
+        resetPlayerMiddlePower(id);
+        resetPlayerRightPower(id);
         return;
     }
 
@@ -696,6 +699,42 @@ public class GameStateService {
 
         Update update = new Update();
         update.set("gameState.oppRightLocation", resetLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetPlayerLeftPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerLeftPower", 0);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetPlayerMiddlePower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerMiddlePower", 0);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void resetPlayerRightPower(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.playerRightPower", 0);
 
         mongoTemplate.findAndModify(query, update, User.class);
 
