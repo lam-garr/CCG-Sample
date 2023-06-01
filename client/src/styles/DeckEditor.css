@@ -1,0 +1,57 @@
+.deck-editor-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+.deck-editor-section-one{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 700px;
+    background-color: pink;
+    position: relative;
+    border: 1px solid black;
+}
+
+/* .deck-editor-section-one.builder{
+    width:600px;
+} */
+
+.deck-editor-section-two{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    width: 1000px;
+    background-color: red;
+    border: 1px solid black;
+}
+
+/* .deck-editor-help-btn{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    border: none;
+    margin: 2px;
+    border-radius: 50%;
+    background-color: rgb(224, 224, 224);
+    position: absolute;
+    right: -21px;
+    bottom: 0;
+} */
+
+.deck-editor-back-btn{
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    left: 0;
+    top: 0;
+}
