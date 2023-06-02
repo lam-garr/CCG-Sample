@@ -160,8 +160,8 @@ function Collection(prop: collectionPropInterface){
         <main className="collection-content">
             <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
              infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/>
-            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
-                removeCard={handleRemoveCardFromDeck}/>
+            {/* <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
+                removeCard={handleRemoveCardFromDeck}/> */}
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="collection-back-btn" onClick={navigateToMenu}>back</button>

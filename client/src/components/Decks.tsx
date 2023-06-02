@@ -3,31 +3,50 @@ import cardInterface from "../utils/interfaces/cardInterface";
 import deckPropInterface from "../utils/interfaces/deckPropInterface";
 import userDeckInterface from "../utils/interfaces/userDeckInterface";
 import "../styles/Decks.css";
+import { useNavigate } from "react-router-dom";
 
 function Decks(prop: deckPropInterface){
 
     //const [ currentDeck , setCurrentDeck ] = useState<any[]>([]);
 
-    const handleCardInfo = (e: any, card: cardInterface) => {
+    /* const handleCardInfo = (e: any, card: cardInterface) => {
         prop.handleCardInfo(card);
-    }
+    } */
+
+    const navigate = useNavigate();
 
     const handleCurrentDeck = (e:any, deck: userDeckInterface) => {
         //setCurrentDeck(deck);
-        prop.handleCurrentDeck(deck);
-        prop.handleOpenDeckBuilder();
+        //prop.handleCurrentDeck(deck);
+        //prop.handleOpenDeckBuilder();
+        navigate({pathname:"/"},
+        {state:{currentDeck:deck}});
     }
 
     const handleNewDeck = () => {
         prop.handleNewDeck();
     }
 
-    const handleDeleteDeck = () => {
+    /* const handleDeleteDeck = () => {
         if(prop.currentDeck) prop.handleDeleteDeck(prop.currentDeck)
-    }
+    } */
 
     return(
-        prop.deckBuilderIsOpen ? 
+        <section className="deck-collection">
+            <button className="deck-collection-left-btn">left</button>
+            <div className="deck-collection-decks">
+                <button onClick={handleNewDeck}>New Deck</button>
+                {prop.userDecks && prop.userDecks.map((deck, i) => {
+                return(
+                    <div key={i} onClick={(e) => {handleCurrentDeck(e, deck)}} className="deck-collection-title-card">
+                        {deck.title}
+                    </div>
+                )
+                })}
+            </div>
+            <button className="deck-collection-right-btn">right</button>
+        </section>
+        /* prop.deckBuilderIsOpen ? 
         <section className="deck-builder">
                 {prop.currentDeck && prop.currentDeck.deck.map((card, i) => {
                     return(
@@ -54,7 +73,7 @@ function Decks(prop: deckPropInterface){
                 })}
             </div>
             <button className="deck-collection-right-btn">right</button>
-        </section>
+        </section> */
     )
 }
 

@@ -49,3 +49,7 @@
 .deck-builder-close-btn:hover{
     color: navy;
 }
+
+.deck-collection-title-card{
+    cursor: pointer;
+}
