@@ -19,7 +19,7 @@ function Decks(prop: deckPropInterface){
         //setCurrentDeck(deck);
         //prop.handleCurrentDeck(deck);
         //prop.handleOpenDeckBuilder();
-        navigate({pathname:"/"},
+        navigate({pathname:"/deck-builder"},
         {state:{currentDeck:deck}});
     }
 
