@@ -19,8 +19,8 @@ function Decks(prop: deckPropInterface){
         //setCurrentDeck(deck);
         //prop.handleCurrentDeck(deck);
         //prop.handleOpenDeckBuilder();
-        navigate({pathname:"/deck-builder"},
-        {state:{currentDeck:deck}});
+        navigate({pathname:`/deck-builder/${deck.id}`},
+        {state:{currentDeckId:deck.id}});
     }
 
     const handleNewDeck = () => {
