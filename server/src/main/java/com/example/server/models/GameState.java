@@ -28,6 +28,9 @@ public class GameState {
     private int oppLeftPower;
     private int oppMiddlePower;
     private int oppRightPower;
+    private String leftLocation;
+    private String middleLocation;
+    private String rightLocation;
 
     public GameState() {
         this.gameStatePresent = false;
@@ -46,5 +49,8 @@ public class GameState {
         this.oppLeftPower = 0;
         this.oppMiddlePower = 0;
         this.oppRightPower = 0;
+        this.leftLocation = "";
+        this.middleLocation = "";
+        this.rightLocation = "";
     }
 }
