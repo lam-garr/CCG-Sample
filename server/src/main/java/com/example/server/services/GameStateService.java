@@ -779,4 +779,33 @@ public class GameStateService {
 
         return;
     }
-}
+
+    private void setGameStateLeftLocation(String id, String newLocation) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.leftLocation", newLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void setGameStateMiddleLocation(String id, String newLocation) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update();
+        update.set("gameState.middleLocation", newLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+
+    private void setGameStateRightLocation(String id, String newLocation) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+
+        Update update = new Update()
