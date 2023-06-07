@@ -780,6 +780,36 @@ public class GameStateService {
         return;
     }
 
+    private String getGameStateLeftLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getLeftLocation();
+    }
+
+    private String getGameStateMiddleLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getMiddleLocation();
+    }
+
+    private String getGameStateRightLocation(String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User targetUser = mongoTemplate.findOne(query, User.class);
+
+        final GameState gameState = targetUser.getGameState();
+
+        return gameState.getRightLocation();
+    }
+
     private void setGameStateLeftLocation(String id, String newLocation) {
         final Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
@@ -808,4 +838,11 @@ public class GameStateService {
         final Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
 
-        Update update = new Update()
+        Update update = new Update();
+        update.set("gameState.rightLocation", newLocation);
+
+        mongoTemplate.findAndModify(query, update, User.class);
+
+        return;
+    }
+}
