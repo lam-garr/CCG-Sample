@@ -8,7 +8,7 @@
     position: relative;
 }
 
-.deck-editor-section-one{
+.deck-editor-section-one-building{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,7 +35,7 @@
     border: 1px solid black;
 }
 
-/* .deck-editor-help-btn{
+.deck-editor-help-btn{
     width: 15px;
     height: 15px;
     cursor: pointer;
@@ -46,7 +46,7 @@
     position: absolute;
     right: -21px;
     bottom: 0;
-} */
+}
 
 .deck-editor-back-btn{
     position: absolute;

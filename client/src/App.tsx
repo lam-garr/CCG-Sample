@@ -26,7 +26,7 @@ function App() {
         <Route element={<Protected/>}>
           <Route path="/collection" element={<Collection handleOverlayChange={changeOverlay} overlayIsOpen={overlayIsOpen}/>}></Route>
           <Route path="/play" element={<GameBoard handleOverlayChange={changeOverlay} overlayIsOpen={overlayIsOpen}/>}></Route>
-          <Route path="/deck-builder/:id" element={<DeckEditor/>}></Route>
+          <Route path="/deck-builder/:id" element={<DeckEditor handleOverlayChange={changeOverlay} overlayIsOpen={overlayIsOpen}/>}></Route>
         </Route>
         <Route element={<Authorized/>}>
           <Route path="/log-in" element={<LoginPage/>}></Route>
