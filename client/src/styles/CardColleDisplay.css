@@ -1,0 +1,35 @@
+.card-colle-display{
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid navy;
+    background-color: white;
+    width: 325px;
+    height: 450px;
+    margin: 0;
+    z-index: 99;
+}
+
+.card-colle-display.active{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.card-colle-cost-display{
+    position: absolute;
+    bottom: -45px;
+    right: 125px;
+    padding: 5px 9px;
+    color: beige;
+}
+
+.card-colle-power-display{
+    position: absolute;
+    bottom: -80px;
+    right: 125px;
+    padding: 5px 9px;
+    border-radius: 10px;
+    color: red;
+}
+
+

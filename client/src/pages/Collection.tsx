@@ -12,6 +12,7 @@ import collectionPropInterface from "../utils/interfaces/collectionPropInterface
 import cardInterface from "../utils/interfaces/cardInterface";
 import userDeckInterface from "../utils/interfaces/userDeckInterface";
 import "../styles/Collection.css";
+import CardColleDisplay from "../components/CardColleDisplay";
 
 function Collection(prop: collectionPropInterface){
 
@@ -158,10 +159,11 @@ function Collection(prop: collectionPropInterface){
 
     return(
         <main className="collection-content">
-            <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
+            {/* <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
              infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/>
-            {/* <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
+            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
                 removeCard={handleRemoveCardFromDeck}/> */}
+            <CardColleDisplay card={selectedCardInfo} handleClose={closeCardColleInfo} infoOpen={cardInfoModalOpen}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="collection-back-btn" onClick={navigateToMenu}>back</button>

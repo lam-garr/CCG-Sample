@@ -67,6 +67,18 @@ function DeckEditor(prop: deckEditorPropInterface) {
         //setDeckToEdit(location.state.currentDeck);
         console.log(location.state.currentDeckId);
         console.log(param.id);
+
+        ///
+        setUserCards([
+            {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+            {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+            {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false},
+            {id:"77777777p", name:"Gohan", description:"Burning Attack!", cost:1, power:1600, flip: false},
+        ])
     }, [])
 
     return(
@@ -74,8 +86,8 @@ function DeckEditor(prop: deckEditorPropInterface) {
             
             {/* <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
              infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/> */}
-            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
-                removeCard={handleRemoveCardFromDeck}/>
+            {/* <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
+                removeCard={handleRemoveCardFromDeck}/> */}
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="deck-editor-back-btn" onClick={navigateBack}>back</button>
