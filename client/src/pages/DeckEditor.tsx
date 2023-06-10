@@ -39,6 +39,13 @@ function DeckEditor(prop: deckEditorPropInterface) {
         prop.handleOverlayChange();
     }
 
+    const handleCardInfoFromDeck = (card: cardInterface) => {
+        //when card is clicked from deck, open modal with option to remove
+        setSelectedDeckCardInfo(card);
+        setDeckCardInfoModalOpen(true);
+        prop.handleOverlayChange();
+    }
+
     const closeDeckCardInfo = () => {
         setDeckCardInfoModalOpen(false);
         prop.handleOverlayChange();
@@ -86,8 +93,8 @@ function DeckEditor(prop: deckEditorPropInterface) {
             
             {/* <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
              infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/> */}
-            {/* <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
-                removeCard={handleRemoveCardFromDeck}/> */}
+            <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
+                removeCard={handleRemoveCardFromDeck}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
             <Overlay isOpen={prop.overlayIsOpen}/>
             <button className="deck-editor-back-btn" onClick={navigateBack}>back</button>
