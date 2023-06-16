@@ -29,6 +29,8 @@ function DeckEditor(prop: deckEditorPropInterface) {
 
     const [ deckCardInfoModalOpen, setDeckCardInfoModalOpen ] = useState(false);
 
+    const [ builderCardInfoModalOpen, setBuilberCardInfoModalOpen ] = useState(false);
+
     const [ selectedDeckCardInfo, setSelectedDeckCardInfo ] = useState<cardInterface>();
 
     const [ cardInfoModalOpen, setCardInfoModalOpen ] = useState(false);
@@ -36,6 +38,11 @@ function DeckEditor(prop: deckEditorPropInterface) {
     const openCardColleInfo = (card: cardInterface) => {
         setSelectedCardInfo(card);
         setCardInfoModalOpen(true);
+        prop.handleOverlayChange();
+    }
+
+    const closeCardColleInfo = () => {
+        setCardInfoModalOpen(false);
         prop.handleOverlayChange();
     }
 
@@ -54,6 +61,10 @@ function DeckEditor(prop: deckEditorPropInterface) {
     const handleRemoveCardFromDeck = (card: cardInterface) => {
         //make apu call with card to remove, then set with returned deck
         //setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
+    }
+
+    const handleAddCardToDeck = (card: cardInterface) => {
+        //make api acll with card to add, then set state with returned deck
     }
 
     const openHelpModal = () => {
@@ -91,8 +102,8 @@ function DeckEditor(prop: deckEditorPropInterface) {
     return(
         <main className="deck-editor-content">
             
-            {/* <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo} deckBuilder={deckBuilderOpen}
-             infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckInView && deckInView.deck}/> */}
+            <CardColleInfo card={selectedCardInfo} handleClose={closeCardColleInfo}
+             infoOpen={cardInfoModalOpen} addCard={handleAddCardToDeck} openDeck={deckToEdit && deckToEdit.deck}/>
             <DeckCardInfo card={selectedDeckCardInfo} handleClose={closeDeckCardInfo} infoOpen={deckCardInfoModalOpen}
                 removeCard={handleRemoveCardFromDeck}/>
             <CollectionHelpModal modalIsOpen={helpModalOpen} handleCloseModal={closeHelpMOdal}/>
