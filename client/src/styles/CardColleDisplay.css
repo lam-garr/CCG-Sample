@@ -15,7 +15,7 @@
     transform: translate(-50%, -50%) scale(1);
 }
 
-.card-colle-cost-display{
+.card-colle-display-cost{
     position: absolute;
     bottom: -45px;
     right: 125px;
@@ -23,7 +23,7 @@
     color: beige;
 }
 
-.card-colle-power-display{
+.card-colle-display-power{
     position: absolute;
     bottom: -80px;
     right: 125px;
