@@ -63,8 +63,30 @@ function DeckEditor(prop: deckEditorPropInterface) {
         //setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
     }
 
-    const handleAddCardToDeck = (card: cardInterface) => {
-        //make api acll with card to add, then set state with returned deck
+    const handleAddCardToDeck = async (card: cardInterface) => {
+        //make api call with card to add, then set state with returned deck
+        const data = window.localStorage.getItem("AccessToken");
+
+        let token;
+
+        if(data) token = JSON.parse(data);
+
+        const addCardToDeckObj = await fetch("api/", {
+            method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${token}`
+                },
+            body: JSON.stringify({
+                card: card
+            })
+        })
+
+        const responseObj = await addCardToDeckObj.json();
+
+        if(responseObj) {
+            //set deck state with returned deck from api
+        }
     }
 
     const openHelpModal = () => {
