@@ -58,9 +58,31 @@ function DeckEditor(prop: deckEditorPropInterface) {
         prop.handleOverlayChange();
     }
 
-    const handleRemoveCardFromDeck = (card: cardInterface) => {
+    const handleRemoveCardFromDeck = async (card: cardInterface) => {
         //make apu call with card to remove, then set with returned deck
         //setDeckInView(prev => {return prev.filter(item => item.id !== card.id)})
+        const data = window.localStorage.getItem("AccessToken");
+
+        let token;
+
+        if(data) token = JSON.parse(data);
+
+        const removeCardFromDeckObj = await fetch("api/", {
+            method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${token}`
+                },
+            body: JSON.stringify({
+                card: card
+            })
+        })
+
+        const responseObj = await removeCardFromDeckObj.json();
+
+        if(responseObj) {
+            //set deck state with returned deck from api
+        }
     }
 
     const handleAddCardToDeck = async (card: cardInterface) => {
