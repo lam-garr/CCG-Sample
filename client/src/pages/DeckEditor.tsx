@@ -67,7 +67,7 @@ function DeckEditor(prop: deckEditorPropInterface) {
 
         if(data) token = JSON.parse(data);
 
-        const removeCardFromDeckObj = await fetch("api/", {
+        const removeCardFromDeckObj = await fetch("/api/", {
             method: "POST",
                 headers: {
                     "Content-Type":"application/json",
@@ -93,7 +93,7 @@ function DeckEditor(prop: deckEditorPropInterface) {
 
         if(data) token = JSON.parse(data);
 
-        const addCardToDeckObj = await fetch("api/", {
+        const addCardToDeckObj = await fetch("/api/", {
             method: "POST",
                 headers: {
                     "Content-Type":"application/json",
@@ -130,7 +130,32 @@ function DeckEditor(prop: deckEditorPropInterface) {
         console.log(location.state.currentDeckId);
         console.log(param.id);
 
-        ///
+        //make api call to get user card collection
+        const fetchData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //set collection state with returned deck from api
+            }
+        }
+
+        //fetchData();
+
+        //mock sample card collection
         setUserCards([
             {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
             {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
