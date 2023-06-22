@@ -126,6 +126,33 @@ function DeckEditor(prop: deckEditorPropInterface) {
     }
 
     useEffect(() => {
+        //make api call to get deck
+        const fetchData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //set deck state with returned deck from api
+            }
+        }
+
+        //fetchData();
+    }, [])
+
+    useEffect(() => {
         //setDeckToEdit(location.state.currentDeck);
         console.log(location.state.currentDeckId);
         console.log(param.id);
