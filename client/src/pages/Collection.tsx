@@ -154,34 +154,60 @@ function Collection(prop: collectionPropInterface){
 
     //useEffect to call api
     useEffect(() => {
-        setUserDecks([
-            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 1", deck: [
-                {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
-            ]},
-            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 2", deck: [
-                {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
-            ]},
-            {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 3", deck: [
-                {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
-                {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
-                {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false}
-            ]}
-        ])
+        //make api call to get user cards
+        const fetchData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //set deck collection state with returned decks from api
+            }
+
+            //mock user deck collection data
+            setUserDecks([
+                {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 1", deck: [
+                    {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
+                ]},
+                {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 2", deck: [
+                    {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"66666666p", name:"Broly", description:"Burning Attack!", cost:1, power:1600, flip: false}
+                ]},
+                {id: `${Math.floor(Math.random() * 1000)}`, title: "deck 3", deck: [
+                    {id:"111111p", name: "Vegeta", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"2222222p", name:"Trunks", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"45454545p", name: "krillin", description:"Galick Gun!!!", cost:1, power:9000, flip: false},
+                    {id:"33333333p", name:"Cell", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"44444444p", name:"Frieza", description:"Burning Attack!", cost:1, power:1600, flip: false},
+                    {id:"55555555p", name:"Cooler", description:"Burning Attack!", cost:1, power:1600, flip: false}
+                ]}
+            ])
+        }
+
+        //fetchData();
     }, [])
 
     return(
