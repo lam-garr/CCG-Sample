@@ -505,6 +505,33 @@ function GameBoard(prop: gameBoardPropInterface){
         setRightLocationInfo({id:"3333", name:"Cell Games", description:"", playerPower: 0, oppPower: 0})
     }, [])
 
+    useEffect(() => {
+        //make api call to get user deck information
+        const fetchData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //set eck info state with returned data from api
+            }
+        }
+
+        //fetchData()
+    }, [])
+
     return(
         <main className="board">
             <section className="left-board">
