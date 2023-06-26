@@ -529,7 +529,30 @@ function GameBoard(prop: gameBoardPropInterface){
             }
         }
 
+        const fetchOppDeckData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //set opponent deck info state with returned data from api
+            }
+        }
+
         //fetchData()
+        //fetchOppDeckData()
     }, [])
 
     return(
