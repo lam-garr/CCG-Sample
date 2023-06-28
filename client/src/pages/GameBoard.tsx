@@ -459,6 +459,32 @@ function GameBoard(prop: gameBoardPropInterface){
         }
     }
 
+    //useEffect to check if there is game state present
+    useEffect(() => {
+        //make api call to return if games state is present
+        const fetchData = async () => {
+            const localStorageData = window.localStorage.getItem("AccessToken");
+
+            let localStorageToken;
+
+            if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+            const response = await fetch("/api/", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${localStorageToken}`
+                }
+            });
+
+            const responseObj = await response.json();
+
+            if(responseObj){
+                //handle game state whether true or false
+            }
+        }
+    }, [])
+
     //useEffect to handle mana change when turn ends
     useEffect(() => {
         const fetchData = async () => {
