@@ -459,6 +459,29 @@ function GameBoard(prop: gameBoardPropInterface){
         }
     }
 
+    const resetGameState = async () => {
+        const localStorageData = window.localStorage.getItem("AccessToken");
+
+        let localStorageToken;
+
+        if(localStorageData) localStorageToken = JSON.parse(localStorageData);
+
+        const response = await fetch("/api/", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${localStorageToken}`
+            }
+        });
+
+        const responseObj = await response.json();
+
+        if(responseObj){
+            //handle new game after reseting/clearing previous game state
+            //navigate({pathname: `/play`})
+        }
+    }
+
     //useEffect to check if there is game state present
     useEffect(() => {
         //make api call to return if games state is present
