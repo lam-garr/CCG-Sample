@@ -105,7 +105,11 @@ function Collection(prop: collectionPropInterface){
         //setDeckInView(newDeck.deck);
         //setUserDecks(prev => [...prev, newDeck])
         //setDeckInView(userDecks[userDecks.length - 1].deck);
-        navigate(`/deck-builder/${newDeck.id}`);
+        navigate(`/deck-builder/${newDeck.id}`, {
+            state: {
+                currentDeckId: newDeck.id
+            }
+        });
         setDeckBuilderOpen(true);
     }
 
