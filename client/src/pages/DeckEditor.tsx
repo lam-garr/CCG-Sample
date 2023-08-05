@@ -139,7 +139,8 @@ function DeckEditor(prop: deckEditorPropInterface) {
                 headers: {
                     "Content-Type":"application/json",
                     "Authorization":`Bearer ${localStorageToken}`
-                }
+                },
+                body: JSON.stringify({id:location.state.currentDeckId})
             });
 
             const responseObj = await response.json();
