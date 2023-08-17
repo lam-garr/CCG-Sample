@@ -111,4 +111,17 @@ public class UserService {
         return;
     }
 
+    public Deck getUserDeck(String deckId, String id) {
+        final Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        final User theUser = mongoTemplate.findOne(query, User.class);
+
+        Deck deck = theUser.getUserDeckCollection().stream()
+            .filter(d -> d.getId().equals(deckId))
+            .findFirst()
+            .orElse(null);
+
+        return deck;
+    }
+
 }
