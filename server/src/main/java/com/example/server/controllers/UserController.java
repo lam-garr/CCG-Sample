@@ -60,5 +60,10 @@ public class UserController {
     public void updateDeckFromCollection(@RequestBody DeckReq deck, @AuthenticationPrincipal UserPrincipal principal) {
         userService.updateDeckFromCollection(deck.getDeck(), principal.getUserId(), deck.getId());
     }
+
+    @PostMapping(path="get-deck")
+    public Deck getUserDeck(@RequestBody String deckId, @AuthenticationPrincipal UserPrincipal principal) {
+        userService.getUserDeck(deckId, principal.getUserId());
+    }
     
 }
